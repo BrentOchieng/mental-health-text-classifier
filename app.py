@@ -13,83 +13,81 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Inject Custom CSS for Slate Grey & Steel Blue UI Styling
+# 2. Inject Custom CSS for Sage & Forest Balm UI Styling
 st.markdown("""
     <style>
-        /* Base page background using a soft, calming steel grey */
+        /* Soft, warm Sage-tinted background (Low contrast, deeply calming) */
         .stApp {
-            background-color: #F1F5F9;
+            background-color: #F2F5F3;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
-        /* Premium minimalistic headers */
+        /* Premium, intentional typography colors */
         .main-title {
             font-size: 2.8rem;
             font-weight: 800;
-            color: #1E293B;
+            color: #112F24; /* Deep Forest Black-Green */
             text-align: center;
             margin-bottom: 0.25rem;
             letter-spacing: -0.025em;
         }
         .subtitle {
             font-size: 1.15rem;
-            color: #64748B;
+            color: #405B50; /* Muted Dark Sage */
             text-align: center;
             margin-bottom: 2rem;
             font-weight: 400;
         }
         
-        /* Containers wrap cleanly inside soft slate-toned borders (No more harsh white blocks) */
+        /* Containers wrap cleanly inside soft Sage-tinted frames (No blinding whites) */
         div[data-testid="stForm"], .stTextArea, div[data-testid="stMetricValue"] {
-            background-color: #E2E8F0 !important;
-            border: 1px solid #CBD5E1 !important;
+            background-color: #E2EAE5 !important;
+            border: 1px solid #CCD7D0 !important;
             border-radius: 12px !important;
-            box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
         }
         
         /* Input text block refinement */
         .stTextArea textarea {
-            background-color: #E2E8F0 !important;
+            background-color: #E2EAE5 !important;
             border: none !important;
             font-size: 16px !important;
-            color: #1E293B !important;
+            color: #112F24 !important;
             padding: 1rem !important;
         }
         
-        /* Bespoke Slate Blue Action Button */
+        /* Premium Forest Green Action Button */
         .stButton>button {
-            background-color: #334155 !important; /* Deep Slate Charcoal */
-            color: #F8FAFC !important;
-            border-radius: 8px !important;
-            border: 1px solid #475569 !important;
+            background-color: #16423C !important; /* Deep Forest Green */
+            color: #F2F5F3 !important;
+            border-radius: 10px !important;
+            border: none !important;
             font-weight: 600 !important;
             font-size: 16px !important;
             padding: 0.7rem 2rem !important;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px -1px rgba(51, 65, 85, 0.12) !important;
+            box-shadow: 0 4px 6px -1px rgba(22, 66, 60, 0.15) !important;
             margin-top: 0.5rem;
         }
         
         .stButton>button:hover {
-            background-color: #475569 !important; /* Lighter slate on hover */
+            background-color: #0D2B26 !important; /* Richer dark green on interactive hover */
             transform: translateY(-1px);
-            box-shadow: 0 6px 10px -1px rgba(51, 65, 85, 0.2) !important;
+            box-shadow: 0 6px 10px -1px rgba(22, 66, 60, 0.25) !important;
         }
         
-        /* Cleaned metric output card structure */
+        /* Metric box structural balancing */
         .metric-box {
             padding: 1.75rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px -1px rgba(0, 0, 0, 0.02);
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
             margin-bottom: 1.75rem;
             margin-top: 1rem;
         }
         .metric-title {
             font-size: 0.85rem;
             text-transform: uppercase;
-            color: #475569;
+            color: #405B50;
             letter-spacing: 0.075em;
             font-weight: 600;
             margin-bottom: 0.4rem;
@@ -100,15 +98,15 @@ st.markdown("""
             letter-spacing: -0.02em;
         }
         
-        /* Sidebar styling synchronization */
+        /* Sidebar layout tint matching */
         section[data-testid="stSidebar"] {
-            background-color: #E2E8F0 !important;
-            border-right: 1px solid #CBD5E1;
+            background-color: #E2EAE5 !important;
+            border-right: 1px solid #CCD7D0;
         }
         
         hr {
             margin: 2rem 0 !important;
-            border-top: 1px solid #CBD5E1 !important;
+            border-top: 1px solid #CCD7D0 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -121,7 +119,6 @@ st.markdown("<hr>", unsafe_allow_html=True)
 # 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
-    # Points to a highly accurate public BERT model fine-tuned on exactly 4 mental health classes
     model_path = "ourafla/mental-health-bert-finetuned" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -188,13 +185,11 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
             
             if is_safety_override:
-                # Direct string override bypass logic
                 predicted_label = 'Suicidal'
                 highest_confidence = 100.0
-                probabilities = [0.0, 0.0, 0.0, 1.0] # Hardcode array matrix for chart
+                probabilities = [0.0, 0.0, 0.0, 1.0]
                 crisis_prob = 1.0
             else:
-                # Fallback to standard BERT Deep Learning Model Inference
                 inputs = tokenizer(clean_input_text(user_input), truncation=True, padding='max_length', max_length=256, return_tensors="pt")
                 inputs = {key: val.to(device) for key, val in inputs.items()}
                 
@@ -211,19 +206,19 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.markdown("### Classification Analytics Dashboard")
             
-            # Muted clinical tones pairing with the slate gray UI interface
+            # Muted earth-tones curated specifically for mental health contexts
             theme_colors = {
-                'Normal': {'hex': '#475569', 'bg': '#CBD5E1'},      # Muted Slate Grey
-                'Anxiety': {'hex': '#D97706', 'bg': '#FEF3C7'},     # Warm Amber
-                'Depression': {'hex': '#2563EB', 'bg': '#DBEAFE'},  # Soft Corporate Blue
-                'Suicidal': {'hex': '#B91C1C', 'bg': '#FEE2E2'}    # Deep Red Alert
+                'Normal': {'hex': '#2D6A4F', 'bg': '#D8F3DC'},      # Calming Muted Leaf Green
+                'Anxiety': {'hex': '#C47B14', 'bg': '#FEF3C7'},     # Soft Honey Ochre
+                'Depression': {'hex': '#2F5266', 'bg': '#D0E1EB'},  # Soft Oceanic Slate Blue
+                'Suicidal': {'hex': '#991B1B', 'bg': '#FEE2E2'}    # Warm Terracotta Crimson
             }
             active_color = theme_colors[predicted_label]['hex']
             
             # Primary Metric Box Display
             st.markdown(f"""
                 <div class="metric-box" style="border-left: 6px solid {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
-                    <div class="metric-title" style="color: {active_color if predicted_label == 'Normal' else '#475569'};">Identified Primary Psychological Context</div>
+                    <div class="metric-title" style="color: #405B50;">Identified Primary Psychological Context</div>
                     <div class="metric-value" style="color: {active_color};">{predicted_label} ({highest_confidence:.1f}%)</div>
                 </div>
             """, unsafe_allow_html=True)
@@ -240,13 +235,13 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                 text=[f"{p*100:.1f}%" for p in probabilities],
                 textposition='outside',
                 hoverinfo='x',
-                textfont=dict(size=12, color='#1E293B', family='Inter')
+                textfont=dict(size=12, color='#112F24', family='Inter')
             ))
             
             fig.update_layout(
-                title=dict(text="Confidence Distribution Array Matrix", font=dict(size=13, color="#475569", family='Inter')),
-                xaxis=dict(title="Probability Score (%)", range=[0, 115], showgrid=True, gridcolor='#CBD5E1', titlefont=dict(color='#475569')),
-                yaxis=dict(autorange="reversed", tickfont=dict(size=13, color='#1E293B')),
+                title=dict(text="Confidence Distribution Array Matrix", font=dict(size=13, color="#405B50", family='Inter')),
+                xaxis=dict(title="Probability Score (%)", range=[0, 115], showgrid=True, gridcolor='#CCD7D0', titlefont=dict(color='#405B50')),
+                yaxis=dict(autorange="reversed", tickfont=dict(size=13, color='#112F24')),
                 margin=dict(l=20, r=20, t=40, b=20),
                 height=260,
                 plot_bgcolor='rgba(0,0,0,0)',
@@ -258,9 +253,9 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             # Crisis Warning Output Flag
             if crisis_prob >= 0.25:
                 st.markdown("""
-                    <div style="background-color: #FCA5A5; border-left: 6px solid #B91C1C; padding: 1.25rem; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                    <div style="background-color: #FCA5A5; border-left: 6px solid #991B1B; padding: 1.25rem; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
                         <span style="font-weight: 700; color: #7F1D1D; font-size: 1rem;">🛡️ Critical Risk Safeguard Alert:</span><br>
-                        <span style="color: #451A03; font-size: 0.95rem; display: block; margin-top: 0.25rem; font-weight: 500;">
+                        <span style="color: #6B1D1D; font-size: 0.95rem; display: block; margin-top: 0.25rem; font-weight: 500;">
                             High-severity mental health signals detected. Security tracking yields a crisis score baseline of <b>{:.1f}%</b>. 
                             Ensure emergency helpline resources are made visible.
                         </span>
