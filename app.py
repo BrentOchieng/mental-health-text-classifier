@@ -13,12 +13,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Inject Custom CSS for Premium, Human-Designed UI Styling
+# 2. Inject Custom CSS for Slate Grey & Steel Blue UI Styling
 st.markdown("""
     <style>
-        /* Base page background and sleek font stack */
+        /* Base page background using a soft, calming steel grey */
         .stApp {
-            background-color: #F8FAFC;
+            background-color: #F1F5F9;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
@@ -26,7 +26,7 @@ st.markdown("""
         .main-title {
             font-size: 2.8rem;
             font-weight: 800;
-            color: #0F172A;
+            color: #1E293B;
             text-align: center;
             margin-bottom: 0.25rem;
             letter-spacing: -0.025em;
@@ -39,58 +39,57 @@ st.markdown("""
             font-weight: 400;
         }
         
-        /* Custom UI framing for cards, text areas, and metric boxes */
+        /* Containers wrap cleanly inside soft slate-toned borders (No more harsh white blocks) */
         div[data-testid="stForm"], .stTextArea, div[data-testid="stMetricValue"] {
-            background-color: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-            border-radius: 14px !important;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+            background-color: #E2E8F0 !important;
+            border: 1px solid #CBD5E1 !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
         }
         
         /* Input text block refinement */
         .stTextArea textarea {
-            background-color: #FFFFFF !important;
+            background-color: #E2E8F0 !important;
             border: none !important;
             font-size: 16px !important;
-            color: #334155 !important;
+            color: #1E293B !important;
             padding: 1rem !important;
         }
         
-        /* Human-designed custom interactive button overrides */
+        /* Bespoke Slate Blue Action Button */
         .stButton>button {
-            background-color: #0F766E !important; /* Elegant Clinical Dark Teal */
-            color: #FFFFFF !important;
-            border-radius: 10px !important;
-            border: none !important;
+            background-color: #334155 !important; /* Deep Slate Charcoal */
+            color: #F8FAFC !important;
+            border-radius: 8px !important;
+            border: 1px solid #475569 !important;
             font-weight: 600 !important;
             font-size: 16px !important;
             padding: 0.7rem 2rem !important;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.15) !important;
+            box-shadow: 0 4px 6px -1px rgba(51, 65, 85, 0.12) !important;
             margin-top: 0.5rem;
         }
         
         .stButton>button:hover {
-            background-color: #115E59 !important; /* Slightly deeper teal tone on interactive hover */
+            background-color: #475569 !important; /* Lighter slate on hover */
             transform: translateY(-1px);
-            box-shadow: 0 6px 10px -1px rgba(15, 118, 110, 0.25) !important;
+            box-shadow: 0 6px 10px -1px rgba(51, 65, 85, 0.2) !important;
         }
         
         /* Cleaned metric output card structure */
         .metric-box {
-            background-color: #ffffff;
             padding: 1.75rem;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px -1px rgba(0, 0, 0, 0.02);
             text-align: center;
-            border-left: 6px solid #3B82F6;
+            border: 1px solid rgba(0, 0, 0, 0.05);
             margin-bottom: 1.75rem;
             margin-top: 1rem;
         }
         .metric-title {
             font-size: 0.85rem;
             text-transform: uppercase;
-            color: #64748B;
+            color: #475569;
             letter-spacing: 0.075em;
             font-weight: 600;
             margin-bottom: 0.4rem;
@@ -101,15 +100,15 @@ st.markdown("""
             letter-spacing: -0.02em;
         }
         
-        /* Modernized Sidebar structural lines */
+        /* Sidebar styling synchronization */
         section[data-testid="stSidebar"] {
-            background-color: #FFFFFF !important;
-            border-right: 1px solid #E2E8F0;
+            background-color: #E2E8F0 !important;
+            border-right: 1px solid #CBD5E1;
         }
         
         hr {
             margin: 2rem 0 !important;
-            border-top: 1px solid #E2E8F0 !important;
+            border-top: 1px solid #CBD5E1 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -212,19 +211,19 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.markdown("### Classification Analytics Dashboard")
             
-            # Intentionally picked color values mapping to professional human palette design guides
+            # Muted clinical tones pairing with the slate gray UI interface
             theme_colors = {
-                'Normal': {'hex': '#10B981', 'bg': '#F0FDF4'},      # Crisp Emerald Green
-                'Anxiety': {'hex': '#F59E0B', 'bg': '#FFFBEB'},     # Muted Warm Amber
-                'Depression': {'hex': '#6366F1', 'bg': '#EEF2FF'},  # Slate Indigo Blue
-                'Suicidal': {'hex': '#DC2626', 'bg': '#FEF2F2'}    # Clean Crimson Alert Red
+                'Normal': {'hex': '#475569', 'bg': '#CBD5E1'},      # Muted Slate Grey
+                'Anxiety': {'hex': '#D97706', 'bg': '#FEF3C7'},     # Warm Amber
+                'Depression': {'hex': '#2563EB', 'bg': '#DBEAFE'},  # Soft Corporate Blue
+                'Suicidal': {'hex': '#B91C1C', 'bg': '#FEE2E2'}    # Deep Red Alert
             }
             active_color = theme_colors[predicted_label]['hex']
             
             # Primary Metric Box Display
             st.markdown(f"""
-                <div class="metric-box" style="border-left-color: {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
-                    <div class="metric-title">Identified Primary Psychological Context</div>
+                <div class="metric-box" style="border-left: 6px solid {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
+                    <div class="metric-title" style="color: {active_color if predicted_label == 'Normal' else '#475569'};">Identified Primary Psychological Context</div>
                     <div class="metric-value" style="color: {active_color};">{predicted_label} ({highest_confidence:.1f}%)</div>
                 </div>
             """, unsafe_allow_html=True)
@@ -236,18 +235,18 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                 orientation='h',
                 marker=dict(
                     color=[theme_colors[lbl]['hex'] for lbl in class_labels],
-                    line=dict(color='rgba(255, 255, 255, 0)', width=0) # Removed clunky black borders
+                    line=dict(color='rgba(255, 255, 255, 0)', width=0)
                 ),
                 text=[f"{p*100:.1f}%" for p in probabilities],
                 textposition='outside',
                 hoverinfo='x',
-                textfont=dict(size=12, color='#475569', family='Inter')
+                textfont=dict(size=12, color='#1E293B', family='Inter')
             ))
             
             fig.update_layout(
-                title=dict(text="Confidence Distribution Array Matrix", font=dict(size=13, color="#64748B", family='Inter')),
-                xaxis=dict(title="Probability Score (%)", range=[0, 115], showgrid=True, gridcolor='#E2E8F0', titlefont=dict(color='#64748B')),
-                yaxis=dict(autorange="reversed", tickfont=dict(size=13, color='#334155')),
+                title=dict(text="Confidence Distribution Array Matrix", font=dict(size=13, color="#475569", family='Inter')),
+                xaxis=dict(title="Probability Score (%)", range=[0, 115], showgrid=True, gridcolor='#CBD5E1', titlefont=dict(color='#475569')),
+                yaxis=dict(autorange="reversed", tickfont=dict(size=13, color='#1E293B')),
                 margin=dict(l=20, r=20, t=40, b=20),
                 height=260,
                 plot_bgcolor='rgba(0,0,0,0)',
@@ -259,9 +258,9 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             # Crisis Warning Output Flag
             if crisis_prob >= 0.25:
                 st.markdown("""
-                    <div style="background-color: #FEF2F2; border-left: 6px solid #EF4444; padding: 1.25rem; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
-                        <span style="font-weight: 700; color: #991B1B; font-size: 1rem;">🛡️ Critical Risk Safeguard Alert:</span><br>
-                        <span style="color: #7F1D1D; font-size: 0.95rem; display: block; margin-top: 0.25rem;">
+                    <div style="background-color: #FCA5A5; border-left: 6px solid #B91C1C; padding: 1.25rem; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                        <span style="font-weight: 700; color: #7F1D1D; font-size: 1rem;">🛡️ Critical Risk Safeguard Alert:</span><br>
+                        <span style="color: #451A03; font-size: 0.95rem; display: block; margin-top: 0.25rem; font-weight: 500;">
                             High-severity mental health signals detected. Security tracking yields a crisis score baseline of <b>{:.1f}%</b>. 
                             Ensure emergency helpline resources are made visible.
                         </span>
