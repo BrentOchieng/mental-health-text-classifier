@@ -59,10 +59,11 @@ st.markdown("---")
 @st.cache_resource
 # 3. Cached Model Loading Pipeline (Instant Local Mode)
 # 3. Cached Model Loading Pipeline (Production Cloud Optimized)
+# 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
-    # Automatically streams the clean, vanilla BERT base architecture from Hugging Face servers
-    model_path = "bert-base-uncased" 
+    # Points to a publicly available BERT model already fine-tuned for mental health analysis
+    model_path = "rezaie/bert-mental-health-context" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(model_path, num_labels=4)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
