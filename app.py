@@ -18,7 +18,7 @@ st.markdown("""
 <style>
 /* App Background */
 .stApp {
-    background-color: #f1f1f7;
+    background-color: #1a2e26;
 }
 
 /* Header Container */
