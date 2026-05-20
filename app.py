@@ -19,7 +19,7 @@ st.markdown("""
 
 /* Main App Background */
 .stApp {
-    background-color: #20242A;
+    background-color: #23262B;
 }
 
 /* Main Title */
