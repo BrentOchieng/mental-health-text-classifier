@@ -253,8 +253,8 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
     },
 
     'Suicidal': {
-        'hex': '#8C6F5C',
-        'bg': '#C75C5C'
+        'hex': '#C75C5C',
+        'bg': '#FAF4F1'
     }
 }
             active_color = theme_colors[predicted_label]['hex']
