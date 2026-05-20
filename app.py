@@ -16,37 +16,92 @@ st.set_page_config(
 # 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
     <style>
-    .reportview-container { background: #f8f9fa; }
-    .main-title {
-        font-size: 2.6rem;
-        font-weight: 800;
-        color: #1E3A8A;
-        text-align: center;
-        margin-bottom: 0.5rem;
+
+    /* Global App Background */
+    .stApp {
+        background-color: #F5F7FA;
     }
+
+    /* Main Title */
+    .main-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #2E4057;
+        text-align: center;
+        margin-bottom: 0.4rem;
+        letter-spacing: -0.5px;
+    }
+
+    /* Subtitle */
     .subtitle {
-        font-size: 1.1rem;
-        color: #4B5563;
+        font-size: 1.05rem;
+        color: #5F6C7B;
         text-align: center;
         margin-bottom: 2rem;
+        line-height: 1.6;
     }
+
+    /* Metric Cards */
     .metric-box {
-        background-color: #ffffff;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        background: #FFFFFF;
+        padding: 1.6rem;
+        border-radius: 18px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
         text-align: center;
-        border-left: 5px solid #3B82F6;
+        border-left: 6px solid #7C9EB2;
         margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
     }
+
+    .metric-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
+    }
+
     .metric-title {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         text-transform: uppercase;
-        color: #6B7280;
-        letter-spacing: 0.05em;
-        margin-bottom: 0.2rem;
+        color: #7B8794;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
     }
-    .metric-value { font-size: 1.8rem; font-weight: 700; }
+
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    /* Text Area */
+    textarea {
+        border-radius: 14px !important;
+        border: 1px solid #D6DEE6 !important;
+        background-color: #FFFFFF !important;
+        color: #2D3748 !important;
+        font-size: 1rem !important;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #6C8EBF, #89A8C9);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .stButton > button:hover {
+        transform: scale(1.01);
+        box-shadow: 0 8px 20px rgba(108, 142, 191, 0.25);
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #EDF2F7;
+    }
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -148,11 +203,26 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             st.markdown("### Classification Analytics Dashboard")
             
             theme_colors = {
-                'Normal': {'hex': '#10B981', 'bg': '#ECFDF5'},
-                'Anxiety': {'hex': '#F59E0B', 'bg': '#FFFBEB'},
-                'Depression': {'hex': '#EF4444', 'bg': '#FEF2F2'},
-                'Suicidal': {'hex': '#7F1D1D', 'bg': '#FFF5F5'}
-            }
+    'Normal': {
+        'hex': '#4C956C',
+        'bg': '#EDF7F1'
+    },
+
+    'Anxiety': {
+        'hex': '#C08457',
+        'bg': '#FFF6EE'
+    },
+
+    'Depression': {
+        'hex': '#7B6D8D',
+        'bg': '#F5F1FA'
+    },
+
+    'Suicidal': {
+        'hex': '#A65D57',
+        'bg': '#FFF1F0'
+    }
+}
             active_color = theme_colors[predicted_label]['hex']
             
             # Primary Metric Box Display
