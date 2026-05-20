@@ -7,108 +7,316 @@ import re
 import plotly.graph_objects as go
 
 # 1. Page Configuration
-st.set_page_config(page_title="MindContext AI", page_icon="🧠", layout="centered")
+st.set_page_config(
+    page_title="MindContext AI",
+    page_icon="",
+    layout="centered"
+)
 
-# 2. Inject Custom CSS for "Warm Parchment" Aesthetic
+# 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
 <style>
-/* App Background - Soft Warm Parchment */
-.stApp { background-color: #EFECE6; }
+
+/* Main App Background */
+.stApp {
+    background-color: #10231C;
+}
 
 /* Main Title */
-.main-title { font-size: 2.8rem; font-weight: 800; color: #2F6F4E; text-align: center; margin-bottom: 0.5rem; }
-
-/* Subtitle Container - Warm earth tone */
-.subtitle-container { 
-    background-color: #EDE8E1; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #D6CDC1; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-}
-.subtitle { font-size: 1.2rem; color: #2F6F4E; text-align: center; font-weight: 500; }
-
-/* Containers - Clean white for high contrast data */
-.chart-container, .metric-box { 
-    background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #D6CDC1; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-top: 1rem; 
+.main-title {
+    font-size: 2.9rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.5px;
 }
 
-/* Sidebar Styling - Soft Brown-Green Blend */
-section[data-testid="stSidebar"] { background-color: #F4F1ED; border-right: 1px solid #D6CDC1; }
-section[data-testid="stSidebar"] * { color: #4A423D !important; }
+/* Subtitle Container */
+.subtitle-container {
+    background-color: #183229;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 1.5rem; /* Slightly adjusted to fit well in the container */
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #0f5132;
+}
+
+/* Metric Cards */
+.metric-box {
+    background: #0f5132;
+    padding: 1.6rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(47, 93, 80, 0.06);
+    text-align: center;
+    border-left: 6px solid #0f5132;
+    margin-bottom: 1.5rem;
+    transition: all 0.25s ease;
+}
+
+.metric-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(47, 93, 80, 0.10);
+}
+
+/* Metric Titles */
+.metric-title {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    color: #0F5132;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* Metric Values */
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
 
 /* Text Area */
-textarea { 
-    border-radius: 12px !important; border: 2px solid #C4B9AA !important; 
-    background-color: #FFFFFF !important; color: #2D241E !important; 
+textarea {
+    border-radius: 16px !important;
+    border: 1px solid #2E4A3D !important;
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    font-size: 1.2rem !important;
+    padding: 1rem !important;
+    line-height: 1.6 !important;
 }
 
 /* Buttons */
-.stButton > button { background: #5D544E; color: #FFFFFF; border-radius: 10px; font-weight: 600; border: none; }
-.stButton > button:hover { background: #2D241E; }
+.stButton > button {
+    background: linear-gradient(
+        135deg,
+        #183229,
+        #183229
+    );
+
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 24px rgba(95, 158, 125, 0.25);
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #DDEBE3;
+}
+
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+    color: #145A32;
+}
+
+/* Alerts */
+.stAlert {
+    border-radius: 14px;
+}
+
+/* Plotly Chart Container */
+[data-testid="stPlotlyChart"] {
+    background: ;
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-# Layout
 st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle-container"><div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div></div>', unsafe_allow_html=True)
 
-# Sidebar
-st.sidebar.markdown("### 🧠 System Status")
-st.sidebar.success("Model Status: Online")
-st.sidebar.markdown("---")
-st.sidebar.markdown("### 📖 Usage Guidelines")
-st.sidebar.write("* **Natural Language:** Provide full, clear sentences.")
-st.sidebar.write("* **Context Length:** 10–200 words.")
-st.sidebar.write("* **Privacy:** All processing occurs locally.")
+# Subtitle inside the container
+st.markdown("""
+<div class="subtitle-container">
+    <div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>
+</div>
+""", unsafe_allow_html=True)
 
-# Model Logic
+st.markdown("---")
+
+# 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
-    model_path = "ourafla/mental-health-bert-finetuned"
+    # Points to a highly accurate public BERT model fine-tuned on exactly 4 mental health classes
+    model_path = "ourafla/mental-health-bert-finetuned" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(model_path, num_labels=4, ignore_mismatched_sizes=True)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        model_path, 
+        num_labels=4,
+        ignore_mismatched_sizes=True
+    )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     return tokenizer, model, device
 
-tokenizer, model, device = load_pipeline()
+try:
+    tokenizer, model, device = load_pipeline()
+    st.sidebar.markdown("### System Status")
+    st.sidebar.success("Model Status: Online & Loaded")
+except Exception as e:
+    st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
+    st.stop()
 
-# Warm Palette for Results
-theme_colors = {'Anxiety': '#D08C3F', 'Depression': '#6B6F8A', 'Normal': '#4E8B70', 'Suicidal': '#B22222'}
+# 4. New Sidebar Content: Clean System Guidelines
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Usage Guidelines")
+st.sidebar.info("""
+**Best Practices for Analysis:**
+* **Natural Language:** Type or paste complete sentences. The deep learning model relies on grammatical context and sentence structures.
+* **Character Length:** Ideal inputs range between 10 to 200 words for optimal attention-matrix processing.
+* **Objective Evaluation:** The dashboard outputs probability distributions across four separate psychological linguistic contexts.
+""")
+st.sidebar.markdown("---")
+st.sidebar.caption("*All string analyses are processed locally on the system memory pipeline.*")
 
-user_input = st.text_area("Enter text context below:", placeholder="Type statements here...", height=160)
+# 5. Dedicated Text Cleaning Rule
+def clean_input_text(text):
+    text = html.unescape(str(text))
+    text = re.sub(r'<[^>]+>', ' ', text)
+    text = " ".join(text.split())
+    return text
 
+# 6. Core User Input Area
+user_input = st.text_area(
+    "Enter text context below to compute deep learning inferences:",
+    placeholder="Type out statements or text sequences here to analyze context...",
+    height=160
+)
+
+# 7. Execution and Logic
 if st.button("Run Live Prediction Analytics ", type="primary", use_container_width=True):
     if user_input.strip() == "":
-        st.warning("Input text cannot be left blank.")
+        st.warning(" Access Denied: Input text cannot be left blank.")
     else:
-        with st.spinner("Analyzing..."):
+        with st.spinner("Processing text sequences..."):
+            cleaned_text = clean_input_text(user_input).lower()
+            
+            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS ---
+            safety_keywords = [
+                r"\bkill\s+myself\b", 
+                r"\bend\s+my\s+life\b", 
+                r"\bsuicide\b", 
+                r"\bcommit\s+suicide\b"
+            ]
+            
+            is_safety_override = any(re.search(pattern, cleaned_text) for pattern in safety_keywords)
+            
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
-            inputs = tokenizer(user_input, truncation=True, padding='max_length', max_length=256, return_tensors="pt").to(device)
-            with torch.no_grad():
-                probs = F.softmax(model(**inputs).logits, dim=-1).squeeze().cpu().numpy()
             
-            pred_idx = probs.argmax()
-            pred_label, pred_color = class_labels[pred_idx], theme_colors[class_labels[pred_idx]]
+            if is_safety_override:
+                # Direct string override bypass logic
+                predicted_label = 'Suicidal'
+                highest_confidence = 100.0
+                probabilities = [0.0, 0.0, 0.0, 1.0] # Hardcode array matrix for chart
+                crisis_prob = 1.0
+            else:
+                # Fallback to standard BERT Deep Learning Model Inference
+                inputs = tokenizer(clean_input_text(user_input), truncation=True, padding='max_length', max_length=256, return_tensors="pt")
+                inputs = {key: val.to(device) for key, val in inputs.items()}
+                
+                model.eval()
+                with torch.no_grad():
+                    outputs = model(**inputs)
+                    logits = outputs.logits
+                    probabilities = F.softmax(logits, dim=-1).squeeze().cpu().numpy()
+                
+                predicted_id = torch.argmax(logits, dim=-1).item()
+                predicted_label = class_labels[predicted_id]
+                highest_confidence = probabilities[predicted_id] * 100
+                crisis_prob = probabilities[3]
             
+            st.markdown("### Classification Analytics Dashboard")
+            
+            theme_colors = {
+
+    'Normal': {
+        'hex': '#4E8B70',
+        'bg': '#EDF8F2'
+    },
+
+    'Anxiety': {
+        'hex': '#D08C3F',
+        'bg': '#F8FBF1'
+    },
+
+    'Depression': {
+        'hex': '#6B6F8A',
+        'bg': '#F2F7F5'
+    },
+
+    'Suicidal': {
+        'hex': '#E07A5F',
+        'bg': '#FAF4F1'
+    }
+}
+            active_color = theme_colors[predicted_label]['hex']
+            
+            # Primary Metric Box Display
             st.markdown(f"""
-                <div class="metric-box" style="border-left: 10px solid {pred_color};">
-                    <p class="metric-title" style="color: #5D544E;">Primary Psychological Context</p>
-                    <h2 style="color: {pred_color};">{pred_label} ({probs[pred_idx]*100:.1f}%)</h2>
+                <div class="metric-box" style="border-left-color: {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
+                    <div class="metric-title">Identified Primary Psychological Context</div>
+                    <div class="metric-value" style="color: {active_color};">{predicted_label} ({highest_confidence:.1f}%)</div>
                 </div>
             """, unsafe_allow_html=True)
             
+            # Interactive Plotly Distribution Chart
             fig = go.Figure(go.Bar(
-                x=probs * 100, y=class_labels, orientation='h',
-                marker_color=[theme_colors[lbl] for lbl in class_labels],
-                text=[f"{p*100:.1f}%" for p in probs], textposition='auto'
+                x=[p * 100 for p in probabilities],
+                y=class_labels,
+                orientation='h',
+                marker=dict(
+                    color=[theme_colors[lbl]['hex'] for lbl in class_labels],
+                    line=dict(color='rgba(0, 0, 0, 0.15)', width=1)
+                ),
+                text=[f"{p*100:.1f}%" for p in probabilities],
+                textposition='outside',
+                hoverinfo='x'
             ))
+            
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
-                xaxis=dict(showgrid=True, gridcolor='#E8E2DA', tickfont=dict(color='#5D544E')),
-                yaxis=dict(tickfont=dict(color='#2D241E', weight='bold')), margin=dict(l=20, r=20, t=10, b=10), height=250
+                title=dict(text="Confidence Distribution Array Matrix", font=dict(size=14, color="#4B5563")),
+                xaxis=dict(title="Probability Score (%)", range=[0, 115], showgrid=True, gridcolor='#E5E7EB'),
+                yaxis=dict(autorange="reversed", tickfont=dict(size=12, weight="bold")),
+                margin=dict(l=20, r=20, t=40, b=20),
+                height=260,
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)'
             )
             
-            st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-            st.markdown("<p style='color:#5D544E; font-weight:bold;'>Confidence Distribution Array Matrix</p>", unsafe_allow_html=True)
             st.plotly_chart(fig, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+            
+            # Crisis Warning Output Flag
+            if crisis_prob >= 0.25:
+                st.markdown("""
+                    <div style="background-color: #FFFBEB; border-left: 6px solid #D97706; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <span style="font-weight: bold; color: #B45309;"> Critical Risk Safeguard Alert:</span><br>
+                        <span style="color: #78350F; font-size: 0.95rem;">
+                            High-severity mental health signals detected. Security tracking yields a crisis score baseline of <b>{:.1f}%</b>. 
+                            Ensure emergency helpline resources are made visible.
+                        </span>
+                    </div>
+                """.format(crisis_prob * 100), unsafe_allow_html=True)
