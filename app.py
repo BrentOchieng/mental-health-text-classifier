@@ -45,7 +45,7 @@ st.markdown("""
 hr {
     border: none;
     height: 1px;
-    background: #od1117;
+    background: #0f5132;
 }
 
 /* Metric Cards */
