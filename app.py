@@ -243,7 +243,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
     },
 
     'Anxiety': {
-        'hex': '#A7B97F',
+        'hex': '#D08C3F',
         'bg': '#F8FBF1'
     },
 
