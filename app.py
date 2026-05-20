@@ -120,7 +120,7 @@ section[data-testid="stSidebar"] {
 
 /* Sidebar Text */
 section[data-testid="stSidebar"] * {
-    color: #0F5132;
+    color: #145A32;
 }
 
 /* Alerts */
