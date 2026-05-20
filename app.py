@@ -21,15 +21,6 @@ st.markdown("""
     background-color: #F8FAFC;
 }
 
-/* Main Container Styling */
-.main-container {
-    background: white;
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    margin-bottom: 2rem;
-}
-
 /* Title Container */
 .title-container {
     background: linear-gradient(135deg, #E0F2FE, #F0F9FF);
@@ -60,15 +51,7 @@ st.markdown("""
     font-weight: 500;
 }
 
-/* Divider */
-hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #94A3B8, transparent);
-    margin: 2rem 0;
-}
-
-/* Metric Cards - Soft & Empathetic */
+/* Metric Cards */
 .metric-box {
     background: white;
     padding: 2rem 1.8rem;
@@ -138,7 +121,7 @@ textarea:focus {
     box-shadow: 0 12px 25px rgba(20, 184, 166, 0.35);
 }
 
-/* Sidebar - Gentle & Supportive */
+/* Sidebar */
 section[data-testid="stSidebar"] {
     background-color: #F1F5F9;
     border-right: 1px solid #E2E8F0;
@@ -152,12 +135,6 @@ section[data-testid="stSidebar"] h1,
 section[data-testid="stSidebar"] h2, 
 section[data-testid="stSidebar"] h3 {
     color: #0F766E;
-}
-
-/* Alerts */
-.stAlert {
-    border-radius: 16px;
-    border: none;
 }
 
 /* Plotly Chart */
@@ -179,7 +156,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 3. Cached Model Loading Pipeline
+# Model Loading
 @st.cache_resource
 def load_pipeline():
     model_path = "ourafla/mental-health-bert-finetuned" 
@@ -198,41 +175,41 @@ try:
     st.sidebar.markdown("### System Status")
     st.sidebar.success("Model Status: Online & Loaded")
 except Exception as e:
-    st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
+    st.sidebar.error("Model Loading Error. Please check your setup.")
     st.stop()
 
-# 4. Sidebar Content
+# Sidebar Guidelines
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Usage Guidelines")
 st.sidebar.info("""
 **Best Practices for Analysis:**
-* **Natural Language:** Type or paste complete sentences. 
-* **Character Length:** Ideal inputs range between 10 to 200 words.
-* **Objective Evaluation:** Results show probability distribution across four psychological contexts.
+* Natural Language: Use complete sentences
+* Best length: 10 to 200 words
+* Results show probability across four contexts
 """)
 st.sidebar.markdown("---")
-st.sidebar.caption("*All analyses are processed locally in your browser.*")
+st.sidebar.caption("*All analyses are processed locally*")
 
-# 5. Text Cleaning
+# Text Cleaning
 def clean_input_text(text):
     text = html.unescape(str(text))
     text = re.sub(r'<[^>]+>', ' ', text)
     text = " ".join(text.split())
     return text
 
-# 6. User Input
+# User Input
 user_input = st.text_area(
     "Enter text context below to compute deep learning inferences:",
     placeholder="Type out statements or text sequences here to analyze context...",
     height=160
 )
 
-# 7. Execution and Logic
+# Main Logic
 if st.button("Run Live Prediction Analytics", type="primary", use_container_width=True):
     if user_input.strip() == "":
-        st.warning("Access Denied: Input text cannot be left blank.")
+        st.warning("Please enter some text to analyze.")
     else:
-        with st.spinner("Processing text sequences..."):
+        with st.spinner("Analyzing text..."):
             cleaned_text = clean_input_text(user_input).lower()
             
             safety_keywords = [
@@ -268,7 +245,6 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
             
             st.markdown("### Classification Analytics Dashboard")
             
-            # Updated Theme Colors
             theme_colors = {
                 'Normal': {'hex': '#10B981', 'bg': '#ECFDF5'},
                 'Anxiety': {'hex': '#F59E0B', 'bg': '#FFFBEB'},
@@ -288,7 +264,7 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                 </div>
             """, unsafe_allow_html=True)
             
-            # Interactive Plotly Chart
+            # Fixed Plotly Chart
             fig = go.Figure(go.Bar(
                 x=[p * 100 for p in probabilities],
                 y=class_labels,
@@ -298,18 +274,18 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                     line=dict(color='rgba(0, 0, 0, 0.1)', width=1)
                 ),
                 text=[f"{p*100:.1f}%" for p in probabilities],
-                textposition='outside',
-                hoverinfo='x'
+                textposition='outside'
             ))
             
             fig.update_layout(
-                title=dict(text="Confidence Distribution", font=dict(size=15, color="#334155")),
-                xaxis=dict(title="Probability (%)", range=[0, 115], showgrid=True, gridcolor='#E2E8F0'),
+                title="Confidence Distribution",
+                xaxis=dict(title="Probability (%)", range=[0, 115], gridcolor='#E2E8F0'),
                 yaxis=dict(autorange="reversed", tickfont=dict(size=13, weight="600")),
-                margin=dict(l=20, r=30, t=40, b=20),
+                margin=dict(l=20, r=30, t=50, b=20),
                 height=280,
                 plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)'
+                paper_bgcolor='rgba(0,0,0,0)',
+                font=dict(color="#334155")
             )
             
             st.plotly_chart(fig, use_container_width=True)
@@ -319,7 +295,7 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                 st.markdown(f"""
                     <div style="background-color: #FEF3F2; border-left: 6px solid #EF4444; padding: 1.25rem; border-radius: 16px; margin-top: 1.5rem;">
                         <span style="font-weight: bold; color: #B91C1C;">⚠️ Critical Risk Alert</span><br>
-                        <span style="color: #991B1B; font-size: 1rem;">
+                        <span style="color: #991B1B;">
                             High-severity signals detected. Crisis probability: <b>{crisis_prob*100:.1f}%</b>.<br>
                             Please reach out to a trusted person or professional helpline immediately.
                         </span>
