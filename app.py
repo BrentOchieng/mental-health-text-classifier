@@ -108,7 +108,7 @@ textarea {
         #183229
     );
 
-    color: white;
+    color: #C7D2CC;
     border: none;
     border-radius: 14px;
     padding: 0.8rem 1rem;
