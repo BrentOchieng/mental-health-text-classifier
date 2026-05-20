@@ -20,37 +20,38 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
 
 /* ── Root Palette ─────────────────────────────────────────────────
-   Warm stone background, sage green accents, soft terracotta for
-   crisis signals, dusty slate for depression, amber for anxiety.
-   The goal: a library reading-room — calm, human, trustworthy.
+   Deep warm espresso backgrounds, sage green accents, soft
+   terracotta for crisis signals, dusty slate for depression,
+   amber for anxiety. Dark theme — like a quiet evening study,
+   calm and steady, not cold or stark.
 ──────────────────────────────────────────────────────────────── */
 :root {
-    --bg-base:        #F5F2EE;   /* warm parchment */
-    --bg-card:        #FDFBF8;   /* near-white with warmth */
-    --bg-sidebar:     #EDE8E0;   /* toasted linen */
+    --bg-base:        #1A1815;   /* deep warm espresso */
+    --bg-card:        #232018;   /* slightly lifted card surface */
+    --bg-sidebar:     #161411;   /* deeper sidebar well */
 
-    --sage-deep:      #4A6741;   /* primary sage — buttons, borders */
-    --sage-mid:       #6B8F62;   /* mid sage — hover, accents */
-    --sage-soft:      #C4D9BB;   /* pale sage — subtle fills */
-    --sage-mist:      #EBF2E7;   /* near-white sage — tag bg */
+    --sage-deep:      #5C825A;   /* primary sage — brightened for dark bg */
+    --sage-mid:       #7AA876;   /* mid sage — hover, accents */
+    --sage-soft:      #3A5238;   /* muted sage — borders on dark */
+    --sage-mist:      #1F2E1E;   /* very dark sage — tag bg */
 
-    --stone-ink:      #2C2925;   /* almost-black for body text */
-    --stone-mid:      #5C5750;   /* muted body text */
-    --stone-light:    #A09890;   /* captions, labels */
+    --stone-ink:      #EDE8E1;   /* warm off-white for headings */
+    --stone-mid:      #A89F96;   /* muted warm for body text */
+    --stone-light:    #6A6259;   /* captions, labels */
 
-    --amber:          #B5692A;   /* anxiety */
-    --amber-soft:     #F5E6D5;
-    --slate:          #5A6278;   /* depression */
-    --slate-soft:     #E3E6EF;
-    --terracotta:     #B04A36;   /* suicidal / crisis */
-    --terracotta-soft:#F5E0DA;
-    --normal:         #4A6741;   /* normal — same as sage */
-    --normal-soft:    #EBF2E7;
+    --amber:          #C97B3A;   /* anxiety — lifted for dark */
+    --amber-soft:     #2A1F12;
+    --slate:          #7A8499;   /* depression — lifted for dark */
+    --slate-soft:     #1A1D26;
+    --terracotta:     #C45A42;   /* suicidal / crisis — lifted for dark */
+    --terracotta-soft:#271210;
+    --normal:         #5C825A;   /* normal — same as sage */
+    --normal-soft:    #1F2E1E;
 
     --radius-card:    16px;
     --radius-btn:     12px;
-    --shadow-card:    0 2px 12px rgba(44, 41, 37, 0.08);
-    --shadow-hover:   0 6px 24px rgba(44, 41, 37, 0.14);
+    --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.35);
+    --shadow-hover:   0 6px 28px rgba(0, 0, 0, 0.50);
 
     --font-display:   'Lora', Georgia, serif;
     --font-body:      'Source Sans 3', 'Helvetica Neue', sans-serif;
@@ -66,8 +67,8 @@ html, body, [class*="css"] {
 .stApp {
     background-color: var(--bg-base);
     background-image:
-        radial-gradient(ellipse at 18% 12%, rgba(107,143,98,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 80%, rgba(181,105,42,0.05) 0%, transparent 50%);
+        radial-gradient(ellipse at 18% 12%, rgba(92,130,90,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 80%, rgba(196,90,66,0.06) 0%, transparent 50%);
 }
 
 /* ── Header Container ─────────────────────────────────────────── */
@@ -139,12 +140,12 @@ textarea {
     font-family: var(--font-body) !important;
     border-radius: var(--radius-card) !important;
     border: 1.5px solid var(--sage-soft) !important;
-    background-color: var(--bg-card) !important;
+    background-color: #2A2620 !important;
     color: var(--stone-ink) !important;
     font-size: 0.97rem !important;
     padding: 1rem 1.1rem !important;
     line-height: 1.65 !important;
-    box-shadow: inset 0 1px 4px rgba(44,41,37,0.04) !important;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.20) !important;
     transition: border-color 0.2s ease !important;
 }
 
@@ -462,14 +463,14 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                 ),
                 text=[f"{p*100:.1f}%" for p in probabilities],
                 textposition='outside',
-                textfont=dict(family="Source Sans 3, sans-serif", size=12, color="#5C5750"),
+                textfont=dict(family="Source Sans 3, sans-serif", size=12, color="#A89F96"),
                 hoverinfo='x'
             ))
             
             fig.update_layout(
                 title=dict(
                     text="Confidence Distribution",
-                    font=dict(family="Lora, Georgia, serif", size=14, color="#5C5750"),
+                    font=dict(family="Lora, Georgia, serif", size=14, color="#A89F96"),
                     x=0.02
                 ),
                 xaxis=dict(
@@ -477,13 +478,13 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                     title_font=dict(family="Source Sans 3, sans-serif", size=11, color="#A09890"),
                     range=[0, 118],
                     showgrid=True,
-                    gridcolor='#EDE8E0',
-                    tickfont=dict(family="Source Sans 3, sans-serif", size=11, color="#A09890"),
+                    gridcolor='#2E2B26',
+                    tickfont=dict(family="Source Sans 3, sans-serif", size=11, color="#6A6259"),
                     zeroline=False
                 ),
                 yaxis=dict(
                     autorange="reversed",
-                    tickfont=dict(family="Source Sans 3, sans-serif", size=12, color="#2C2925"),
+                    tickfont=dict(family="Source Sans 3, sans-serif", size=12, color="#EDE8E1"),
                 ),
                 margin=dict(l=20, r=30, t=44, b=24),
                 height=260,
