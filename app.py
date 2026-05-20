@@ -92,7 +92,7 @@ hr {
 /* Text Area */
 textarea {
     border-radius: 16px !important;
-    border: 1px solid #0f5132 !important;
+    border: 1px solid #2E4A3D !important;
     background-color: #ffffff !important;
     color: #111827 !important;
     font-size: 1rem !important;
@@ -108,7 +108,7 @@ textarea {
         #183229
     );
 
-    color: #C7D2CC;
+    color: white;
     border: none;
     border-radius: 14px;
     padding: 0.8rem 1rem;
