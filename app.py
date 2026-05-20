@@ -26,7 +26,7 @@ st.markdown("""
 .main-title {
     font-size: 2.9rem;
     font-weight: 800;
-    color: #2F5D50;
+    color: #od1117;
     text-align: center;
     margin-bottom: 0.3rem;
     letter-spacing: -0.5px;
@@ -35,7 +35,7 @@ st.markdown("""
 /* Subtitle */
 .subtitle {
     font-size: 1.05rem;
-    color: #5E756B;
+    color: #od1117;
     text-align: center;
     margin-bottom: 2rem;
     line-height: 1.7;
@@ -69,7 +69,7 @@ hr {
 .metric-title {
     font-size: 0.82rem;
     text-transform: uppercase;
-    color: #7D9388;
+    color: #od1117;
     letter-spacing: 0.09em;
     margin-bottom: 0.5rem;
     font-weight: 600;
@@ -86,7 +86,7 @@ textarea {
     border-radius: 16px !important;
     border: 1px solid #D7E6DD !important;
     background-color: #FFFFFF !important;
-    color: #30453D !important;
+    color: #od1117 !important;
     font-size: 1rem !important;
     padding: 1rem !important;
     line-height: 1.6 !important;
