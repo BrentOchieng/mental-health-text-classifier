@@ -32,12 +32,20 @@ st.markdown("""
     letter-spacing: -0.5px;
 }
 
+/* Subtitle Container */
+.subtitle-container {
+    background-color: #16352A;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
 /* Subtitle */
 .subtitle {
-    font-size: 1.9rem;
+    font-size: 1.5rem; /* Slightly adjusted to fit well in the container */
     color: #ffffff;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     line-height: 1.7;
 }
 
@@ -138,8 +146,16 @@ section[data-testid="stSidebar"] * {
 
 </style>
 """, unsafe_allow_html=True)
+
 st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
+
+# Subtitle inside the container
+st.markdown("""
+<div class="subtitle-container">
+    <div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
