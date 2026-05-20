@@ -16,89 +16,132 @@ st.set_page_config(
 # 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
 <style>
-/* App Background */
+
+/* Main App Background */
 .stApp {
-    background-color: #10231C;
+    background-color: #1C1F23;
 }
 
-/* Header Container */
-.header-box {
-    background-color: #0F2F24;
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid #145A32;
-    margin-bottom: 2rem;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
+/* Main Title */
 .main-title {
-    font-size: 2.8rem;
+    font-size: 2.9rem;
     font-weight: 800;
     color: #ffffff;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.5px;
 }
 
+/* Subtitle */
 .subtitle {
-    font-size: 1.2rem;
-    color: #d1d5db;
-    line-height: 1.5;
+    font-size: 1.9rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #0f5132;
 }
 
 /* Metric Cards */
 .metric-box {
-    background: #0F2F24;
+    background: #0f5132;
     padding: 1.6rem;
     border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(47, 93, 80, 0.06);
     text-align: center;
-    border-left: 6px solid #145A32;
+    border-left: 6px solid #0f5132;
     margin-bottom: 1.5rem;
+    transition: all 0.25s ease;
 }
 
+.metric-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(47, 93, 80, 0.10);
+}
+
+/* Metric Titles */
 .metric-title {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     text-transform: uppercase;
-    color: #a7f3d0;
-    letter-spacing: 0.05em;
+    color: #0F5132;
+    letter-spacing: 0.09em;
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
+/* Metric Values */
 .metric-value {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: #ffffff;
 }
 
-/* Text Area Styling */
+/* Text Area */
 textarea {
     border-radius: 16px !important;
-    border: 2px solid #145A32 !important;
+    border: 1px solid #0f5132 !important;
     background-color: #ffffff !important;
     color: #111827 !important;
     font-size: 1rem !important;
     padding: 1rem !important;
+    line-height: 1.6 !important;
 }
 
 /* Buttons */
 .stButton > button {
-    background: #145A32;
+    background: linear-gradient(
+        135deg,
+        #145A32,
+        #145A32
+    );
+
     color: white;
     border: none;
     border-radius: 14px;
-    padding: 0.6rem 2rem;
+    padding: 0.8rem 1rem;
     font-weight: 600;
-    width: 100%;
+    transition: all 0.3s ease;
 }
+
+.stButton > button:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 24px rgba(95, 158, 125, 0.25);
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #DDEBE3;
+}
+
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+    color: #145A32;
+}
+
+/* Alerts */
+.stAlert {
+    border-radius: 14px;
+}
+
+/* Plotly Chart Container */
+[data-testid="stPlotlyChart"] {
+    background: ;
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+
 </style>
 """, unsafe_allow_html=True)
+st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
+st.markdown("---")
 
-# --- Header Section ---
-st.markdown("""
-    <div class="header-box">
-        <div class="main-title">MindContext AI</div>
-        <div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>
-    </div>
-""", unsafe_allow_html=True)
 # 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
