@@ -26,7 +26,7 @@ st.markdown("""
 .main-title {
     font-size: 2.9rem;
     font-weight: 800;
-    color: #0f5132;
+    color: #ffffff;
     text-align: center;
     margin-bottom: 0.3rem;
     letter-spacing: -0.5px;
@@ -35,7 +35,7 @@ st.markdown("""
 /* Subtitle */
 .subtitle {
     font-size: 1.9rem;
-    color: #0F5132;
+    color: #ffffff;
     text-align: center;
     margin-bottom: 2rem;
     line-height: 1.7;
