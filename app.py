@@ -100,7 +100,7 @@ textarea {
         #0F5132
     );
 
-    color: blue;
+    color: white;
     border: none;
     border-radius: 14px;
     padding: 0.8rem 1rem;
