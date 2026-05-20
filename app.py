@@ -138,14 +138,16 @@ section[data-testid="stSidebar"] * {
 
 </style>
 """, unsafe_allow_html=True)
-st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
-st.markdown("---")
 
-# 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
+# Container for Header and Subheader
+with st.container():
+    st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
+    st.markdown("---")
+
+# 3. Cached Model Loading Pipeline
 @st.cache_resource
 def load_pipeline():
-    # Points to a highly accurate public BERT model fine-tuned on exactly 4 mental health classes
     model_path = "ourafla/mental-health-bert-finetuned" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -165,7 +167,7 @@ except Exception as e:
     st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
     st.stop()
 
-# 4. New Sidebar Content: Clean System Guidelines
+# 4. New Sidebar Content
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Usage Guidelines")
 st.sidebar.info("""
@@ -212,13 +214,11 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
             
             if is_safety_override:
-                # Direct string override bypass logic
                 predicted_label = 'Suicidal'
                 highest_confidence = 100.0
-                probabilities = [0.0, 0.0, 0.0, 1.0] # Hardcode array matrix for chart
+                probabilities = [0.0, 0.0, 0.0, 1.0]
                 crisis_prob = 1.0
             else:
-                # Fallback to standard BERT Deep Learning Model Inference
                 inputs = tokenizer(clean_input_text(user_input), truncation=True, padding='max_length', max_length=256, return_tensors="pt")
                 inputs = {key: val.to(device) for key, val in inputs.items()}
                 
@@ -236,27 +236,11 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             st.markdown("### Classification Analytics Dashboard")
             
             theme_colors = {
-
-    'Normal': {
-        'hex': '#4E8B70',
-        'bg': '#EDF8F2'
-    },
-
-    'Anxiety': {
-        'hex': '#D08C3F',
-        'bg': '#F8FBF1'
-    },
-
-    'Depression': {
-        'hex': '#6B6F8A',
-        'bg': '#F2F7F5'
-    },
-
-    'Suicidal': {
-        'hex': '#E07A5F',
-        'bg': '#FAF4F1'
-    }
-}
+                'Normal': {'hex': '#4E8B70', 'bg': '#EDF8F2'},
+                'Anxiety': {'hex': '#D08C3F', 'bg': '#F8FBF1'},
+                'Depression': {'hex': '#6B6F8A', 'bg': '#F2F7F5'},
+                'Suicidal': {'hex': '#E07A5F', 'bg': '#FAF4F1'}
+            }
             active_color = theme_colors[predicted_label]['hex']
             
             # Primary Metric Box Display
@@ -304,4 +288,3 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                         </span>
                     </div>
                 """.format(crisis_prob * 100), unsafe_allow_html=True)
-
