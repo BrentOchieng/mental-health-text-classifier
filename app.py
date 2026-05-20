@@ -16,7 +16,6 @@ st.set_page_config(
 # 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
 <style>
-
 /* Main App Background */
 .stApp {
     background-color: #1C1F23;
@@ -94,12 +93,7 @@ textarea {
 
 /* Buttons */
 .stButton > button {
-    background: linear-gradient(
-        135deg,
-        #145A32,
-        #145A32
-    );
-
+    background: linear-gradient(135deg, #145A32, #145A32);
     color: white;
     border: none;
     border-radius: 14px;
@@ -130,17 +124,16 @@ section[data-testid="stSidebar"] * {
 
 /* Plotly Chart Container */
 [data-testid="stPlotlyChart"] {
-    background: ;
     border-radius: 16px;
     padding: 0.5rem;
     box-shadow: 0 4px 16px rgba(0,0,0,0.03);
 }
-
 </style>
 """, unsafe_allow_html=True)
 
-# Container for Header and Subheader
-with st.container():
+# Define the container and wrap the header/subheader elements inside it
+header_container = st.container()
+with header_container:
     st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
     st.markdown("---")
@@ -201,7 +194,6 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
         with st.spinner("Processing text sequences..."):
             cleaned_text = clean_input_text(user_input).lower()
             
-            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS ---
             safety_keywords = [
                 r"\bkill\s+myself\b", 
                 r"\bend\s+my\s+life\b", 
@@ -210,7 +202,6 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             ]
             
             is_safety_override = any(re.search(pattern, cleaned_text) for pattern in safety_keywords)
-            
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
             
             if is_safety_override:
@@ -243,7 +234,6 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             }
             active_color = theme_colors[predicted_label]['hex']
             
-            # Primary Metric Box Display
             st.markdown(f"""
                 <div class="metric-box" style="border-left-color: {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
                     <div class="metric-title">Identified Primary Psychological Context</div>
@@ -251,7 +241,6 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                 </div>
             """, unsafe_allow_html=True)
             
-            # Interactive Plotly Distribution Chart
             fig = go.Figure(go.Bar(
                 x=[p * 100 for p in probabilities],
                 y=class_labels,
@@ -277,7 +266,6 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.plotly_chart(fig, use_container_width=True)
             
-            # Crisis Warning Output Flag
             if crisis_prob >= 0.25:
                 st.markdown("""
                     <div style="background-color: #FFFBEB; border-left: 6px solid #D97706; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
