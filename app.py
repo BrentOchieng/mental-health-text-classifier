@@ -43,7 +43,7 @@ st.markdown("""
 
 /* Divider */
 hr {
-    border: none;
+    border: 1px solid #0f5132 !important;
     height: 1px;
     background: #0f5132;
 }
