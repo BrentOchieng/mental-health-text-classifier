@@ -50,7 +50,7 @@ hr {
 
 /* Metric Cards */
 .metric-box {
-    background: #od1117;
+    background: #FFFFFF;
     padding: 1.6rem;
     border-radius: 18px;
     box-shadow: 0 8px 24px rgba(47, 93, 80, 0.06);
@@ -69,7 +69,7 @@ hr {
 .metric-title {
     font-size: 0.82rem;
     text-transform: uppercase;
-    color: #od1117;
+    color: #0F5132;
     letter-spacing: 0.09em;
     margin-bottom: 0.5rem;
     font-weight: 600;
