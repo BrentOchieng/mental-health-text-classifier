@@ -85,7 +85,7 @@ hr {
 textarea {
     border-radius: 16px !important;
     border: 1px solid #0f5132 !important;
-    background-color: #FFFFFF !important;
+    background-color: #0f5132 !important;
     color: #0F5132 !important;
     font-size: 1rem !important;
     padding: 1rem !important;
