@@ -115,7 +115,7 @@ textarea {
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: #EAF3EE;
+    background-color: #0D1117;
 }
 
 /* Sidebar Text */
