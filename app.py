@@ -24,8 +24,8 @@ st.markdown("""
 /* Main Title */
 .main-title {
     border-radius: 16px !important;
-    border: 1px solid #0f5132 !important;
-    background-color: #ffffff !important;
+    border: 2px solid #0f5132 !important;
+    background-color: #1C1F23 !important;
     color: #111827 !important;
     font-size: 1rem !important;
     padding: 1rem !important;
