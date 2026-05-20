@@ -9,35 +9,18 @@ import plotly.graph_objects as go
 # 1. Page Configuration
 st.set_page_config(page_title="MindContext AI", page_icon="🧠", layout="centered")
 
-# 2. Inject Custom CSS for Bright, Clinical UI
+# 2. Inject Custom CSS
 st.markdown("""
 <style>
 .stApp { background-color: #F8FDFB; }
-
 .main-title { font-size: 2.8rem; font-weight: 800; color: #145A32; text-align: center; margin-bottom: 0.5rem; }
-
-.subtitle-container { 
-    background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #DDEBE3; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(20, 90, 50, 0.05); 
-}
-
+.subtitle-container { background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; border: 1px solid #DDEBE3; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(20, 90, 50, 0.05); }
 .subtitle { font-size: 1.2rem; color: #2D4A3D; text-align: center; font-weight: 500; }
-
-.chart-container { 
-    background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #DDEBE3; box-shadow: 0 4px 12px rgba(20, 90, 50, 0.08); margin-top: 1rem; 
-}
-
-.metric-box { 
-    background: #FFFFFF; padding: 1.6rem; border-radius: 18px; 
-    border: 2px solid #145A32; margin-bottom: 1.5rem; text-align: center;
-}
-
+.chart-container { background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; border: 1px solid #DDEBE3; box-shadow: 0 4px 12px rgba(20, 90, 50, 0.08); margin-top: 1rem; }
+.metric-box { background: #FFFFFF; padding: 1.6rem; border-radius: 18px; border: 2px solid #145A32; margin-bottom: 1.5rem; text-align: center; }
 .metric-title { font-size: 0.82rem; text-transform: uppercase; color: #145A32; font-weight: 800; margin-bottom: 0.5rem; }
-.metric-value { font-size: 2rem; font-weight: 700; color: #0A3D22; }
-
+.metric-value { font-size: 2rem; font-weight: 700; }
 textarea { border-radius: 12px !important; border: 1px solid #145A32 !important; background-color: #FFFFFF !important; color: #1A3C2E !important; }
-
 section[data-testid="stSidebar"] { background-color: #E8F3EF; }
 </style>
 """, unsafe_allow_html=True)
@@ -57,6 +40,14 @@ def load_pipeline():
 
 tokenizer, model, device = load_pipeline()
 
+# Theme Mapping
+theme_colors = {
+    'Anxiety': '#D08C3F',    # Muted Amber
+    'Depression': '#6B6F8A', # Slate Blue
+    'Normal': '#4E8B70',     # Sage Green
+    'Suicidal': '#B22222'    # Deep Red
+}
+
 st.markdown("<h4 style='color:#145A32;'>Enter text context below to compute deep learning inferences:</h4>", unsafe_allow_html=True)
 user_input = st.text_area("", placeholder="Type statements here...", height=160)
 
@@ -71,23 +62,28 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                 probs = F.softmax(model(**inputs).logits, dim=-1).squeeze().cpu().numpy()
             
             pred_idx = probs.argmax()
+            pred_label = class_labels[pred_idx]
+            pred_color = theme_colors[pred_label]
             
             # Display Metric
             st.markdown(f"""
-                <div class="metric-box">
+                <div class="metric-box" style="border-left: 10px solid {pred_color};">
                     <div class="metric-title">Identified Primary Psychological Context</div>
-                    <div class="metric-value">{class_labels[pred_idx]} ({probs[pred_idx]*100:.1f}%)</div>
+                    <div class="metric-value" style="color: {pred_color};">{pred_label} ({probs[pred_idx]*100:.1f}%)</div>
                 </div>
             """, unsafe_allow_html=True)
             
-            # Chart with High-Contrast Dark Green Labels
+            # Chart with Distinct Colors per Bar
+            bar_colors = [theme_colors[lbl] for lbl in class_labels]
+            
             fig = go.Figure(go.Bar(
                 x=probs * 100, y=class_labels, orientation='h',
-                marker_color='#145A32',
+                marker_color=bar_colors,
                 text=[f"{p*100:.1f}%" for p in probs],
                 textposition='auto',
-                textfont=dict(color='#145A32', size=14)
+                textfont=dict(color='#333333', size=13, weight='bold')
             ))
+            
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
                 xaxis=dict(showgrid=True, gridcolor='#DDEBE3', tickfont=dict(color='#145A32')),
