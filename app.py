@@ -23,6 +23,7 @@ st.markdown("""
 
 /* Main Title */
 .main-title {
+    border-radius: 16px !important;
     font-size: 2.9rem;
     font-weight: 800;
     color: #ffffff;
