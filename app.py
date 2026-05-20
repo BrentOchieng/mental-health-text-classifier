@@ -16,14 +16,14 @@ st.markdown("""
 .stApp { background-color: #EFECE6; }
 
 /* Main Title */
-.main-title { font-size: 2.8rem; font-weight: 800; color: #2D241E; text-align: center; margin-bottom: 0.5rem; }
+.main-title { font-size: 2.8rem; font-weight: 800; color: #2F6F4E; text-align: center; margin-bottom: 0.5rem; }
 
 /* Subtitle Container - Warm earth tone */
 .subtitle-container { 
     background-color: #EDE8E1; padding: 1.5rem; border-radius: 16px; 
     border: 1px solid #D6CDC1; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
 }
-.subtitle { font-size: 1.2rem; color: #5D544E; text-align: center; font-weight: 500; }
+.subtitle { font-size: 1.2rem; color: #2F6F4E; text-align: center; font-weight: 500; }
 
 /* Containers - Clean white for high contrast data */
 .chart-container, .metric-box { 
