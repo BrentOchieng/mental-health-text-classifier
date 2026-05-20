@@ -104,8 +104,8 @@ textarea {
 .stButton > button {
     background: linear-gradient(
         135deg,
-        #145A32,
-        #145A32
+        #183229,
+        #183229
     );
 
     color: white;
