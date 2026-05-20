@@ -248,7 +248,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
     },
 
     'Depression': {
-        'hex': '#6E8F80',
+        'hex': '#6B6F8A',
         'bg': '#F2F7F5'
     },
 
