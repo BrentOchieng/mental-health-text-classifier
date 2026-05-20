@@ -50,7 +50,7 @@ hr {
 
 /* Metric Cards */
 .metric-box {
-    background: #0d1117;
+    background: #od1117;
     padding: 1.6rem;
     border-radius: 18px;
     box-shadow: 0 8px 24px rgba(47, 93, 80, 0.06);
