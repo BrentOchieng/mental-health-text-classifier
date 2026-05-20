@@ -86,7 +86,7 @@ textarea {
     border-radius: 16px !important;
     border: 1px solid #D7E6DD !important;
     background-color: #FFFFFF !important;
-    color: #od1117 !important;
+    color: #0F5132 !important;
     font-size: 1rem !important;
     padding: 1rem !important;
     line-height: 1.6 !important;
@@ -120,7 +120,7 @@ section[data-testid="stSidebar"] {
 
 /* Sidebar Text */
 section[data-testid="stSidebar"] * {
-    color: #466255;
+    color: #0F5132;
 }
 
 /* Alerts */
