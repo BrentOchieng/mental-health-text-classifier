@@ -13,7 +13,7 @@ st.set_page_config(page_title="MindContext AI", page_icon="🧠", layout="center
 st.markdown("""
 <style>
 /* App Background - Soft Warm Parchment */
-.stApp { background-color: #FDFBF7; }
+.stApp { background-color: ##F2F0EA; }
 
 /* Main Title */
 .main-title { font-size: 2.8rem; font-weight: 800; color: #2D241E; text-align: center; margin-bottom: 0.5rem; }
