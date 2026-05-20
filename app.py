@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 # 1. Page Configuration
 st.set_page_config(
     page_title="MindContext AI",
-    page_icon="🧠",
+    page_icon="",
     layout="centered"
 )
 
@@ -18,7 +18,7 @@ st.markdown("""
 <style>
 /* App Background */
 .stApp {
-    background-color: #06261D;
+    background-color: #f1f1f7;
 }
 
 /* Header Container */
