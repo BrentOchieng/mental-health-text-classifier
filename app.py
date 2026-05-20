@@ -235,7 +235,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.markdown("### Classification Analytics Dashboard")
             
- theme_colors = {
+theme_colors = {
 
     'Normal': {
         'hex': '#4E8B70',
