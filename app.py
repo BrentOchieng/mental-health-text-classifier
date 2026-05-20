@@ -15,94 +15,128 @@ st.set_page_config(
 
 # 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
-    <style>
+<style>
 
-    /* Global App Background */
-    .stApp {
-        background-color: #374151;
-    }
+/* Main App Background */
+.stApp {
+    background-color: #F4F7F9;
+}
 
-    /* Main Title */
-    .main-title {
-        font-size: 2.8rem;
-        font-weight: 800;
-        color: #2E4057;
-        text-align: center;
-        margin-bottom: 0.4rem;
-        letter-spacing: -0.5px;
-    }
+/* Main Title */
+.main-title {
+    font-size: 2.9rem;
+    font-weight: 800;
+    color: #2F4858;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.5px;
+}
 
-    /* Subtitle */
-    .subtitle {
-        font-size: 1.05rem;
-        color: #5F6C7B;
-        text-align: center;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
+/* Subtitle */
+.subtitle {
+    font-size: 1.05rem;
+    color: #5B6B73;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
 
-    /* Metric Cards */
-    .metric-box {
-        background: #FFFFFF;
-        padding: 1.6rem;
-        border-radius: 18px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-        text-align: center;
-        border-left: 6px solid #7C9EB2;
-        margin-bottom: 1.5rem;
-        transition: all 0.3s ease;
-    }
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #DCE5EA;
+}
 
-    .metric-box:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
-    }
+/* Metric Cards */
+.metric-box {
+    background: #FFFFFF;
+    padding: 1.6rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(47, 72, 88, 0.06);
+    text-align: center;
+    border-left: 6px solid #6B9AA0;
+    margin-bottom: 1.5rem;
+    transition: all 0.25s ease;
+}
 
-    .metric-title {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: #7B8794;
-        letter-spacing: 0.08em;
-        margin-bottom: 0.4rem;
-        font-weight: 600;
-    }
+.metric-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(47, 72, 88, 0.10);
+}
 
-    .metric-value {
-        font-size: 2rem;
-        font-weight: 700;
-    }
+/* Metric Titles */
+.metric-title {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    color: #7A8B94;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-    /* Text Area */
-    textarea {
-        border-radius: 14px !important;
-        border: 1px solid #D6DEE6 !important;
-        background-color: #FFFFFF !important;
-        color: #2D3748 !important;
-        font-size: 1rem !important;
-    }
+/* Metric Values */
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
 
-    /* Buttons */
-    .stButton > button {
-        background: linear-gradient(135deg, #6C8EBF, #89A8C9);
-        color: white;
-        border: none;
-        border-radius: 14px;
-        padding: 0.75rem 1rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
+/* Text Area */
+textarea {
+    border-radius: 16px !important;
+    border: 1px solid #D6E0E5 !important;
+    background-color: #FFFFFF !important;
+    color: #2E3A42 !important;
+    font-size: 1rem !important;
+    padding: 1rem !important;
+    line-height: 1.6 !important;
+}
 
-    .stButton > button:hover {
-        transform: scale(1.01);
-        box-shadow: 0 8px 20px rgba(108, 142, 191, 0.25);
-    }
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(
+        135deg,
+        #6EA4BF,
+        #7DB8A6
+    );
+    
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background-color: #EDF2F7;
-    }
+.stButton > button:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 24px rgba(110, 164, 191, 0.25);
+}
 
-    </style>
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #EEF3F5;
+}
+
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+    color: #44545E;
+}
+
+/* Alerts */
+.stAlert {
+    border-radius: 14px;
+}
+
+/* Plotly Chart Container */
+[data-testid="stPlotlyChart"] {
+    background: white;
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+
+</style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
@@ -203,24 +237,25 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             st.markdown("### Classification Analytics Dashboard")
             
             theme_colors = {
+
     'Normal': {
-        'hex': '#4C956C',
-        'bg': '#EDF7F1'
+        'hex': '#5C9E7D',
+        'bg': '#EEF8F2'
     },
 
     'Anxiety': {
-        'hex': '#C08457',
-        'bg': '#FFF6EE'
+        'hex': '#D4A373',
+        'bg': '#FFF7EF'
     },
 
     'Depression': {
-        'hex': '#7B6D8D',
-        'bg': '#F5F1FA'
+        'hex': '#6C8EA3',
+        'bg': '#F1F6FA'
     },
 
     'Suicidal': {
-        'hex': '#A65D57',
-        'bg': '#FFF1F0'
+        'hex': '#B07D62',
+        'bg': '#FFF4EE'
     }
 }
             active_color = theme_colors[predicted_label]['hex']
