@@ -95,7 +95,7 @@ textarea {
     border: 1px solid #2E4A3D !important;
     background-color: #ffffff !important;
     color: #111827 !important;
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
     padding: 1rem !important;
     line-height: 1.6 !important;
 }
