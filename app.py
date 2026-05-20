@@ -16,6 +16,7 @@ st.set_page_config(
 # 2. Inject Custom CSS for Premium UI Styling
 st.markdown("""
 <style>
+
 /* Main App Background */
 .stApp {
     background-color: #1C1F23;
@@ -23,14 +24,12 @@ st.markdown("""
 
 /* Main Title */
 .main-title {
-    border-radius: 16px !important;
-    border: 2px solid #0f5132 !important;
-    background-color: #1C1F23 !important;
-    color: #ffffff !important;
-    text-align: center
-    font-size: 2rem !important;
-    padding: 2rem !important;
-    line-height: 1.6 !important;
+    font-size: 2.9rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.5px;
 }
 
 /* Subtitle */
@@ -44,7 +43,7 @@ st.markdown("""
 
 /* Divider */
 hr {
-    border: 1px solid #0f5132 !important;
+    border: none;
     height: 1px;
     background: #0f5132;
 }
@@ -95,7 +94,12 @@ textarea {
 
 /* Buttons */
 .stButton > button {
-    background: linear-gradient(135deg, #145A32, #145A32);
+    background: linear-gradient(
+        135deg,
+        #145A32,
+        #145A32
+    );
+
     color: white;
     border: none;
     border-radius: 14px;
@@ -126,23 +130,22 @@ section[data-testid="stSidebar"] * {
 
 /* Plotly Chart Container */
 [data-testid="stPlotlyChart"] {
+    background: ;
     border-radius: 16px;
     padding: 0.5rem;
     box-shadow: 0 4px 16px rgba(0,0,0,0.03);
 }
+
 </style>
 """, unsafe_allow_html=True)
+st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
+st.markdown("---")
 
-# Define the container and wrap the header/subheader elements inside it
-header_container = st.container()
-with header_container:
-    st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>', unsafe_allow_html=True)
-    st.markdown("---")
-
-# 3. Cached Model Loading Pipeline
+# 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
+    # Points to a highly accurate public BERT model fine-tuned on exactly 4 mental health classes
     model_path = "ourafla/mental-health-bert-finetuned" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -162,7 +165,7 @@ except Exception as e:
     st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
     st.stop()
 
-# 4. New Sidebar Content
+# 4. New Sidebar Content: Clean System Guidelines
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Usage Guidelines")
 st.sidebar.info("""
@@ -196,6 +199,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
         with st.spinner("Processing text sequences..."):
             cleaned_text = clean_input_text(user_input).lower()
             
+            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS ---
             safety_keywords = [
                 r"\bkill\s+myself\b", 
                 r"\bend\s+my\s+life\b", 
@@ -204,14 +208,17 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             ]
             
             is_safety_override = any(re.search(pattern, cleaned_text) for pattern in safety_keywords)
+            
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
             
             if is_safety_override:
+                # Direct string override bypass logic
                 predicted_label = 'Suicidal'
                 highest_confidence = 100.0
-                probabilities = [0.0, 0.0, 0.0, 1.0]
+                probabilities = [0.0, 0.0, 0.0, 1.0] # Hardcode array matrix for chart
                 crisis_prob = 1.0
             else:
+                # Fallback to standard BERT Deep Learning Model Inference
                 inputs = tokenizer(clean_input_text(user_input), truncation=True, padding='max_length', max_length=256, return_tensors="pt")
                 inputs = {key: val.to(device) for key, val in inputs.items()}
                 
@@ -229,13 +236,30 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             st.markdown("### Classification Analytics Dashboard")
             
             theme_colors = {
-                'Normal': {'hex': '#4E8B70', 'bg': '#EDF8F2'},
-                'Anxiety': {'hex': '#D08C3F', 'bg': '#F8FBF1'},
-                'Depression': {'hex': '#6B6F8A', 'bg': '#F2F7F5'},
-                'Suicidal': {'hex': '#E07A5F', 'bg': '#FAF4F1'}
-            }
+
+    'Normal': {
+        'hex': '#4E8B70',
+        'bg': '#EDF8F2'
+    },
+
+    'Anxiety': {
+        'hex': '#D08C3F',
+        'bg': '#F8FBF1'
+    },
+
+    'Depression': {
+        'hex': '#6B6F8A',
+        'bg': '#F2F7F5'
+    },
+
+    'Suicidal': {
+        'hex': '#E07A5F',
+        'bg': '#FAF4F1'
+    }
+}
             active_color = theme_colors[predicted_label]['hex']
             
+            # Primary Metric Box Display
             st.markdown(f"""
                 <div class="metric-box" style="border-left-color: {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
                     <div class="metric-title">Identified Primary Psychological Context</div>
@@ -243,6 +267,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                 </div>
             """, unsafe_allow_html=True)
             
+            # Interactive Plotly Distribution Chart
             fig = go.Figure(go.Bar(
                 x=[p * 100 for p in probabilities],
                 y=class_labels,
@@ -268,6 +293,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.plotly_chart(fig, use_container_width=True)
             
+            # Crisis Warning Output Flag
             if crisis_prob >= 0.25:
                 st.markdown("""
                     <div style="background-color: #FFFBEB; border-left: 6px solid #D97706; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
@@ -278,3 +304,4 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
                         </span>
                     </div>
                 """.format(crisis_prob * 100), unsafe_allow_html=True)
+
