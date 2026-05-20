@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 # 1. Page Configuration
 st.set_page_config(
     page_title="MindContext AI",
-    page_icon="",
+    page_icon="🧠",
     layout="centered"
 )
 
@@ -341,4 +341,3 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                     </div>
                 """, unsafe_allow_html=True)
 </FILE>
-              
