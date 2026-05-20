@@ -55,7 +55,7 @@ hr {
     border-radius: 18px;
     box-shadow: 0 8px 24px rgba(47, 93, 80, 0.06);
     text-align: center;
-    border-left: 6px solid #7AA38D;
+    border-left: 6px solid #0f5132;
     margin-bottom: 1.5rem;
     transition: all 0.25s ease;
 }
