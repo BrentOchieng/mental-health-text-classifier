@@ -13,92 +13,54 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Inject Custom CSS for Premium UI Styling
+# 2. Inject Refined Professional CSS
 st.markdown("""
 <style>
-/* App Background */
-.stApp {
-    background-color: #06261D;
-}
+/* Base Theme */
+.stApp { background-color: #12181F; }
 
-/* Header Container */
+/* Sidebar Styling */
+section[data-testid="stSidebar"] { background-color: #F8F9FA; }
+section[data-testid="stSidebar"] * { color: #145A32 !important; font-weight: 500; }
+
+/* Header Box */
 .header-box {
-    background-color: #0F2F24;
-    padding: 2rem;
+    background-color: #1A2421;
+    padding: 2.5rem;
     border-radius: 20px;
-    border: 1px solid #145A32;
+    border: 1px solid #2D4D44;
     margin-bottom: 2rem;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.main-title { font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem; }
+.subtitle { font-size: 1.1rem; color: #A0AEC0; }
+
+/* Output Containers */
+.result-container {
+    background-color: #1A2421;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #2D4D44;
+    margin-top: 1.5rem;
+}
+.chart-container {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 16px;
+    margin-top: 1rem;
 }
 
-.main-title {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    color: #d1d5db;
-    line-height: 1.5;
-}
-
-/* Metric Cards */
-.metric-box {
-    background: #0F2F24;
-    padding: 1.6rem;
-    border-radius: 18px;
-    text-align: center;
-    border-left: 6px solid #145A32;
-    margin-bottom: 1.5rem;
-}
-
-.metric-title {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #a7f3d0;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-}
-
-.metric-value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-/* Text Area Styling */
-textarea {
-    border-radius: 16px !important;
-    border: 2px solid #145A32 !important;
-    background-color: #ffffff !important;
-    color: #111827 !important;
-    font-size: 1rem !important;
-    padding: 1rem !important;
-}
+/* Text Area */
+textarea { border-radius: 12px !important; border: 1px solid #2D4D44 !important; }
 
 /* Buttons */
-.stButton > button {
-    background: #145A32;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 0.6rem 2rem;
-    font-weight: 600;
-    width: 100%;
-}
+.stButton > button { background: #145A32; color: white; border-radius: 10px; width: 100%; }
 </style>
 """, unsafe_allow_html=True)
 
-# --- Header Section ---
-st.markdown("""
-    <div class="header-box">
-        <div class="main-title">MindContext AI</div>
-        <div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>
-    </div>
-""", unsafe_allow_html=True)
+# Header
+st.markdown('<div class="header-box"><div class="main-title">MindContext AI</div><div class="subtitle">Clinical Linguistic Context Classifier</div></div>', unsafe_allow_html=True)
 # 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
 @st.cache_resource
 def load_pipeline():
