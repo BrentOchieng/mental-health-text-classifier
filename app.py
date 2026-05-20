@@ -24,12 +24,12 @@ st.markdown("""
 /* Main Title */
 .main-title {
     border-radius: 16px !important;
-    font-size: 2.9rem;
-    font-weight: 800;
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 0.3rem;
-    letter-spacing: -0.5px;
+    border: 1px solid #0f5132 !important;
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    font-size: 1rem !important;
+    padding: 1rem !important;
+    line-height: 1.6 !important;
 }
 
 /* Subtitle */
