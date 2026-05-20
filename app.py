@@ -130,7 +130,7 @@ section[data-testid="stSidebar"] * {
 
 /* Plotly Chart Container */
 [data-testid="stPlotlyChart"] {
-    background: green;
+    background: 0f5132;
     border-radius: 16px;
     padding: 0.5rem;
     box-shadow: 0 4px 16px rgba(0,0,0,0.03);
