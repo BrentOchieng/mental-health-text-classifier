@@ -9,40 +9,41 @@ import plotly.graph_objects as go
 # 1. Page Configuration
 st.set_page_config(page_title="MindContext AI", page_icon="🧠", layout="centered")
 
-# 2. Inject Custom CSS for Dark/Muted Clinical Aesthetic
+# 2. Inject Custom CSS for "Warm Parchment" Aesthetic
 st.markdown("""
 <style>
-/* Main App Background - Dark Jungle Green */
-.stApp { background-color: #013220; }
+/* App Background - Soft Warm Parchment */
+.stApp { background-color: #FDFBF7; }
 
 /* Main Title */
-.main-title { font-size: 2.8rem; font-weight: 800; color: #E8F3EF; text-align: center; margin-bottom: 0.5rem; }
+.main-title { font-size: 2.8rem; font-weight: 800; color: #2D241E; text-align: center; margin-bottom: 0.5rem; }
 
-/* Subtitle Container - Muted light-on-dark surface */
+/* Subtitle Container - Warm earth tone */
 .subtitle-container { 
-    background-color: #0A3D22; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #145A32; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+    background-color: #EDE8E1; padding: 1.5rem; border-radius: 16px; 
+    border: 1px solid #D6CDC1; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
 }
-.subtitle { font-size: 1.2rem; color: #DDEBE3; text-align: center; font-weight: 500; }
+.subtitle { font-size: 1.2rem; color: #5D544E; text-align: center; font-weight: 500; }
 
-/* Containers */
+/* Containers - Clean white for high contrast data */
 .chart-container, .metric-box { 
-    background-color: #F8FDFB; padding: 1.5rem; border-radius: 16px; 
-    border: 1px solid #145A32; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-top: 1rem; 
+    background-color: #FFFFFF; padding: 1.5rem; border-radius: 16px; 
+    border: 1px solid #D6CDC1; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-top: 1rem; 
 }
 
-/* Sidebar Styling */
-section[data-testid="stSidebar"] { background-color: #0A3D22; border-right: 1px solid #145A32; }
-section[data-testid="stSidebar"] * { color: #E8F3EF !important; }
+/* Sidebar Styling - Soft Brown-Green Blend */
+section[data-testid="stSidebar"] { background-color: #F4F1ED; border-right: 1px solid #D6CDC1; }
+section[data-testid="stSidebar"] * { color: #4A423D !important; }
 
 /* Text Area */
 textarea { 
-    border-radius: 12px !important; border: 2px solid #145A32 !important; 
-    background-color: #F8FDFB !important; color: #013220 !important; 
+    border-radius: 12px !important; border: 2px solid #C4B9AA !important; 
+    background-color: #FFFFFF !important; color: #2D241E !important; 
 }
 
 /* Buttons */
-.stButton > button { background: #145A32; color: #FFFFFF; border-radius: 10px; font-weight: 600; }
+.stButton > button { background: #5D544E; color: #FFFFFF; border-radius: 10px; font-weight: 600; border: none; }
+.stButton > button:hover { background: #2D241E; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -50,7 +51,7 @@ textarea {
 st.markdown('<div class="main-title">MindContext AI</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle-container"><div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div></div>', unsafe_allow_html=True)
 
-# Sidebar Content
+# Sidebar
 st.sidebar.markdown("### 🧠 System Status")
 st.sidebar.success("Model Status: Online")
 st.sidebar.markdown("---")
@@ -71,6 +72,7 @@ def load_pipeline():
 
 tokenizer, model, device = load_pipeline()
 
+# Warm Palette for Results
 theme_colors = {'Anxiety': '#D08C3F', 'Depression': '#6B6F8A', 'Normal': '#4E8B70', 'Suicidal': '#B22222'}
 
 user_input = st.text_area("Enter text context below:", placeholder="Type statements here...", height=160)
@@ -90,7 +92,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             
             st.markdown(f"""
                 <div class="metric-box" style="border-left: 10px solid {pred_color};">
-                    <p class="metric-title" style="color: #013220;">Primary Psychological Context</p>
+                    <p class="metric-title" style="color: #5D544E;">Primary Psychological Context</p>
                     <h2 style="color: {pred_color};">{pred_label} ({probs[pred_idx]*100:.1f}%)</h2>
                 </div>
             """, unsafe_allow_html=True)
@@ -102,11 +104,11 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
             ))
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
-                xaxis=dict(showgrid=True, gridcolor='#DDEBE3', tickfont=dict(color='#013220')),
-                yaxis=dict(tickfont=dict(color='#013220', weight='bold')), margin=dict(l=20, r=20, t=10, b=10), height=250
+                xaxis=dict(showgrid=True, gridcolor='#E8E2DA', tickfont=dict(color='#5D544E')),
+                yaxis=dict(tickfont=dict(color='#2D241E', weight='bold')), margin=dict(l=20, r=20, t=10, b=10), height=250
             )
             
             st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-            st.markdown("<p style='color:#013220; font-weight:bold;'>Confidence Distribution Array Matrix</p>", unsafe_allow_html=True)
+            st.markdown("<p style='color:#5D544E; font-weight:bold;'>Confidence Distribution Array Matrix</p>", unsafe_allow_html=True)
             st.plotly_chart(fig, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
