@@ -34,7 +34,7 @@ st.markdown("""
 
 /* Subtitle Container */
 .subtitle-container {
-    background-color: #0d1117;
+    background-color: #0f5132;
     padding: 1rem;
     border-radius: 12px;
     margin-bottom: 2rem;
