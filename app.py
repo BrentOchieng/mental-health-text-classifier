@@ -1,4 +1,3 @@
-<FILE file_path="/home/workdir/attachments/app.py" size="10088 bytes">
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -149,7 +148,6 @@ section[data-testid="stSidebar"] * {
     color: #334155;
 }
 
-/* Sidebar Headers */
 section[data-testid="stSidebar"] h1, 
 section[data-testid="stSidebar"] h2, 
 section[data-testid="stSidebar"] h3 {
@@ -181,7 +179,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 3. Cached Model Loading Pipeline (unchanged)
+# 3. Cached Model Loading Pipeline
 @st.cache_resource
 def load_pipeline():
     model_path = "ourafla/mental-health-bert-finetuned" 
@@ -203,7 +201,7 @@ except Exception as e:
     st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
     st.stop()
 
-# 4. Sidebar Content (minimal visual update)
+# 4. Sidebar Content
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Usage Guidelines")
 st.sidebar.info("""
@@ -215,7 +213,7 @@ st.sidebar.info("""
 st.sidebar.markdown("---")
 st.sidebar.caption("*All analyses are processed locally in your browser.*")
 
-# 5. Text Cleaning (unchanged)
+# 5. Text Cleaning
 def clean_input_text(text):
     text = html.unescape(str(text))
     text = re.sub(r'<[^>]+>', ' ', text)
@@ -229,7 +227,7 @@ user_input = st.text_area(
     height=160
 )
 
-# 7. Execution and Logic (only visual updates below)
+# 7. Execution and Logic
 if st.button("Run Live Prediction Analytics", type="primary", use_container_width=True):
     if user_input.strip() == "":
         st.warning("Access Denied: Input text cannot be left blank.")
@@ -237,7 +235,6 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
         with st.spinner("Processing text sequences..."):
             cleaned_text = clean_input_text(user_input).lower()
             
-            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS --- (unchanged)
             safety_keywords = [
                 r"\bkill\s+myself\b", 
                 r"\bend\s+my\s+life\b", 
@@ -271,24 +268,12 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
             
             st.markdown("### Classification Analytics Dashboard")
             
-            # Updated Theme Colors - More Human, Calming & Empathetic
+            # Updated Theme Colors
             theme_colors = {
-                'Normal': {
-                    'hex': '#10B981',
-                    'bg': '#ECFDF5'
-                },
-                'Anxiety': {
-                    'hex': '#F59E0B',
-                    'bg': '#FFFBEB'
-                },
-                'Depression': {
-                    'hex': '#64748B',
-                    'bg': '#F8FAFC'
-                },
-                'Suicidal': {
-                    'hex': '#EF4444',
-                    'bg': '#FEF2F2'
-                }
+                'Normal': {'hex': '#10B981', 'bg': '#ECFDF5'},
+                'Anxiety': {'hex': '#F59E0B', 'bg': '#FFFBEB'},
+                'Depression': {'hex': '#64748B', 'bg': '#F8FAFC'},
+                'Suicidal': {'hex': '#EF4444', 'bg': '#FEF2F2'}
             }
             active_color = theme_colors[predicted_label]['hex']
             
@@ -303,7 +288,7 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                 </div>
             """, unsafe_allow_html=True)
             
-            # Interactive Plotly Chart (colors updated)
+            # Interactive Plotly Chart
             fig = go.Figure(go.Bar(
                 x=[p * 100 for p in probabilities],
                 y=class_labels,
@@ -340,4 +325,3 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
                         </span>
                     </div>
                 """, unsafe_allow_html=True)
-</FILE>
