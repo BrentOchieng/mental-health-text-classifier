@@ -253,7 +253,7 @@ if st.button("Run Live Prediction Analytics ", type="primary", use_container_wid
     },
 
     'Suicidal': {
-        'hex': '#C75C5C',
+        'hex': '#E07A5F',
         'bg': '#FAF4F1'
     }
 }
