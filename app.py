@@ -97,7 +97,7 @@ textarea {
     background: linear-gradient(
         135deg,
         #0F5132,
-        #7BB08A
+        #0F5132
     );
 
     color: white;
