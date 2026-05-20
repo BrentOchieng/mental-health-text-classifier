@@ -1,3 +1,4 @@
+<FILE file_path="/home/workdir/attachments/app.py" size="10088 bytes">
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -13,325 +14,176 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Inject Custom CSS for Premium UI Styling
+# 2. Updated Premium & Human-Centered CSS
 st.markdown("""
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
-
-/* ── Root Palette ─────────────────────────────────────────────────
-   Deep warm espresso backgrounds, sage green accents, soft
-   terracotta for crisis signals, dusty slate for depression,
-   amber for anxiety. Dark theme — like a quiet evening study,
-   calm and steady, not cold or stark.
-──────────────────────────────────────────────────────────────── */
-:root {
-    --bg-base:        #1A1815;   /* deep warm espresso */
-    --bg-card:        #232018;   /* slightly lifted card surface */
-    --bg-sidebar:     #161411;   /* deeper sidebar well */
-
-    --sage-deep:      #5C825A;   /* primary sage — brightened for dark bg */
-    --sage-mid:       #7AA876;   /* mid sage — hover, accents */
-    --sage-soft:      #3A5238;   /* muted sage — borders on dark */
-    --sage-mist:      #1F2E1E;   /* very dark sage — tag bg */
-
-    --stone-ink:      #EDE8E1;   /* warm off-white for headings */
-    --stone-mid:      #A89F96;   /* muted warm for body text */
-    --stone-light:    #6A6259;   /* captions, labels */
-
-    --amber:          #C97B3A;   /* anxiety — lifted for dark */
-    --amber-soft:     #2A1F12;
-    --slate:          #7A8499;   /* depression — lifted for dark */
-    --slate-soft:     #1A1D26;
-    --terracotta:     #C45A42;   /* suicidal / crisis — lifted for dark */
-    --terracotta-soft:#271210;
-    --normal:         #5C825A;   /* normal — same as sage */
-    --normal-soft:    #1F2E1E;
-
-    --radius-card:    16px;
-    --radius-btn:     12px;
-    --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.35);
-    --shadow-hover:   0 6px 28px rgba(0, 0, 0, 0.50);
-
-    --font-display:   'Lora', Georgia, serif;
-    --font-body:      'Source Sans 3', 'Helvetica Neue', sans-serif;
-}
-
-/* ── Global Reset ─────────────────────────────────────────────── */
-html, body, [class*="css"] {
-    font-family: var(--font-body) !important;
-    color: var(--stone-ink);
-}
-
-/* ── App Background ───────────────────────────────────────────── */
+/* Overall App - Soft, Calming, Human Feel */
 .stApp {
-    background-color: var(--bg-base);
-    background-image:
-        radial-gradient(ellipse at 18% 12%, rgba(92,130,90,0.10) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 80%, rgba(196,90,66,0.06) 0%, transparent 50%);
+    background-color: #F8FAFC;
 }
 
-/* ── Header Container ─────────────────────────────────────────── */
-.header-wrap {
-    background: var(--bg-card);
-    border: 1px solid var(--sage-soft);
-    border-radius: var(--radius-card);
-    padding: 2.4rem 2rem 2rem;
+/* Main Container Styling */
+.main-container {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+}
+
+/* Title Container */
+.title-container {
+    background: linear-gradient(135deg, #E0F2FE, #F0F9FF);
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
     text-align: center;
-    margin-bottom: 1.8rem;
-    box-shadow: var(--shadow-card);
-    position: relative;
-    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 1px solid #BAE6FD;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.08);
 }
 
-.header-wrap::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--sage-deep), var(--sage-mid), var(--sage-soft));
-}
-
+/* Main Title */
 .main-title {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--sage-deep);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.3px;
-    line-height: 1.2;
+    font-size: 3.1rem;
+    font-weight: 800;
+    color: #0F766E;
+    margin-bottom: 0.4rem;
+    letter-spacing: -1.2px;
+    text-shadow: 0 2px 4px rgba(15, 118, 110, 0.1);
 }
 
+/* Subtitle */
 .subtitle {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--stone-mid);
-    line-height: 1.6;
-    max-width: 480px;
-    margin: 0 auto;
-    letter-spacing: 0.01em;
+    font-size: 1.65rem;
+    color: #334155;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 500;
 }
 
-.header-badge {
-    display: inline-block;
-    background: var(--sage-mist);
-    color: var(--sage-deep);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    border: 1px solid var(--sage-soft);
-    border-radius: 100px;
-    padding: 0.28rem 0.9rem;
-    margin-bottom: 1rem;
-}
-
-/* ── Divider ──────────────────────────────────────────────────── */
+/* Divider */
 hr {
     border: none;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--sage-soft), transparent);
-    margin: 1.6rem 0;
+    background: linear-gradient(to right, transparent, #94A3B8, transparent);
+    margin: 2rem 0;
 }
 
-/* ── Textarea ─────────────────────────────────────────────────── */
-textarea {
-    font-family: var(--font-body) !important;
-    border-radius: var(--radius-card) !important;
-    border: 1.5px solid var(--sage-soft) !important;
-    background-color: #2A2620 !important;
-    color: var(--stone-ink) !important;
-    font-size: 0.97rem !important;
-    padding: 1rem 1.1rem !important;
-    line-height: 1.65 !important;
-    box-shadow: inset 0 1px 4px rgba(0,0,0,0.20) !important;
-    transition: border-color 0.2s ease !important;
-}
-
-textarea:focus {
-    border-color: var(--sage-mid) !important;
-    box-shadow: 0 0 0 3px rgba(107,143,98,0.12) !important;
-}
-
-/* ── Input Label ──────────────────────────────────────────────── */
-label[data-testid="stWidgetLabel"] > div > p {
-    font-family: var(--font-body) !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    color: var(--stone-mid) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.07em !important;
-    margin-bottom: 0.4rem !important;
-}
-
-/* ── Primary Button ───────────────────────────────────────────── */
-.stButton > button {
-    font-family: var(--font-body) !important;
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    background: var(--sage-deep) !important;
-    color: #FDFBF8 !important;
-    border: none !important;
-    border-radius: var(--radius-btn) !important;
-    padding: 0.78rem 1.2rem !important;
-    letter-spacing: 0.02em !important;
-    transition: all 0.22s ease !important;
-    box-shadow: 0 2px 8px rgba(74,103,65,0.25) !important;
-}
-
-.stButton > button:hover {
-    background: var(--sage-mid) !important;
-    box-shadow: 0 6px 20px rgba(74,103,65,0.30) !important;
-    transform: translateY(-1px) !important;
-}
-
-.stButton > button:active {
-    transform: translateY(0px) !important;
-    box-shadow: 0 2px 6px rgba(74,103,65,0.20) !important;
-}
-
-/* ── Metric Card ──────────────────────────────────────────────── */
+/* Metric Cards - Soft & Empathetic */
 .metric-box {
-    background: var(--bg-card);
-    padding: 1.6rem 1.8rem;
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
+    background: white;
+    padding: 2rem 1.8rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
     text-align: center;
-    border-left: 5px solid var(--sage-deep);
-    margin-bottom: 1.5rem;
-    transition: box-shadow 0.22s ease, transform 0.22s ease;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 1.8rem;
+    transition: all 0.3s ease;
 }
 
 .metric-box:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    border-color: #67E8F9;
 }
 
+/* Metric Titles */
 .metric-title {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
-    color: var(--stone-light);
-    letter-spacing: 0.10em;
-    margin-bottom: 0.55rem;
+    color: #64748B;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.6rem;
     font-weight: 600;
 }
 
+/* Metric Values */
 .metric-value {
-    font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: 2.35rem;
     font-weight: 700;
     line-height: 1.1;
 }
 
-/* ── Section Heading ──────────────────────────────────────────── */
-h3, .section-title {
-    font-family: var(--font-display) !important;
-    color: var(--stone-ink) !important;
-    font-weight: 600 !important;
-    font-size: 1.15rem !important;
-    margin-bottom: 0.8rem !important;
+/* Text Area */
+textarea {
+    border-radius: 18px !important;
+    border: 2px solid #CBD5E1 !important;
+    background-color: #FFFFFF !important;
+    color: #1E2937 !important;
+    font-size: 1.05rem !important;
+    padding: 1.25rem !important;
+    line-height: 1.7 !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
-/* ── Sidebar ──────────────────────────────────────────────────── */
+textarea:focus {
+    border-color: #14B8A6 !important;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15) !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #14B8A6, #0F766E);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 0.95rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.25);
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(20, 184, 166, 0.35);
+}
+
+/* Sidebar - Gentle & Supportive */
 section[data-testid="stSidebar"] {
-    background-color: var(--bg-sidebar) !important;
-    border-right: 1px solid var(--sage-soft) !important;
+    background-color: #F1F5F9;
+    border-right: 1px solid #E2E8F0;
 }
 
 section[data-testid="stSidebar"] * {
-    color: var(--stone-ink) !important;
+    color: #334155;
 }
 
-section[data-testid="stSidebar"] .stMarkdown h3 {
-    font-family: var(--font-display) !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: var(--sage-deep) !important;
-    border-bottom: 1px solid var(--sage-soft);
-    padding-bottom: 0.4rem;
-    margin-bottom: 0.8rem !important;
+/* Sidebar Headers */
+section[data-testid="stSidebar"] h1, 
+section[data-testid="stSidebar"] h2, 
+section[data-testid="stSidebar"] h3 {
+    color: #0F766E;
 }
 
-section[data-testid="stSidebar"] .stAlert {
-    background: var(--sage-mist) !important;
-    border: 1px solid var(--sage-soft) !important;
-    border-left: 3px solid var(--sage-deep) !important;
-    border-radius: 10px !important;
-    color: var(--stone-mid) !important;
-    font-size: 0.875rem !important;
-    line-height: 1.6 !important;
-}
-
-section[data-testid="stSidebar"] .stSuccess {
-    background: var(--sage-mist) !important;
-    border: 1px solid var(--sage-soft) !important;
-    border-left: 3px solid var(--sage-deep) !important;
-    border-radius: 10px !important;
-    color: var(--sage-deep) !important;
-    font-size: 0.875rem !important;
-}
-
-section[data-testid="stSidebar"] small,
-section[data-testid="stSidebar"] caption,
-section[data-testid="stSidebar"] .stCaption {
-    color: var(--stone-light) !important;
-    font-size: 0.78rem !important;
-    font-style: italic;
-}
-
-/* ── Warning / Alert Overrides ────────────────────────────────── */
+/* Alerts */
 .stAlert {
-    border-radius: 12px !important;
-    font-family: var(--font-body) !important;
+    border-radius: 16px;
+    border: none;
 }
 
-.stWarning {
-    background: #FFF8ED !important;
-    border-left-color: var(--amber) !important;
-    color: var(--stone-ink) !important;
-}
-
-/* ── Spinner ──────────────────────────────────────────────────── */
-.stSpinner > div {
-    border-top-color: var(--sage-mid) !important;
-}
-
-/* ── Plotly Chart Container ───────────────────────────────────── */
+/* Plotly Chart */
 [data-testid="stPlotlyChart"] {
-    background: var(--bg-card);
-    border: 1px solid var(--sage-soft);
-    border-radius: var(--radius-card);
-    padding: 0.6rem;
-    box-shadow: var(--shadow-card);
+    background: white;
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #F1F5F9;
 }
-
-/* ── Scrollbar (subtle) ───────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
-::-webkit-scrollbar-thumb { background: var(--sage-soft); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: var(--sage-mid); }
-
 </style>
 """, unsafe_allow_html=True)
 
-# ── Header Container ───────────────────────────────────────────────────────────
+# Title & Subtitle in dedicated containers
 st.markdown("""
-<div class="header-wrap">
-    <div class="header-badge">Mental Health NLP · Deep Learning</div>
+<div class="title-container">
     <div class="main-title">MindContext AI</div>
-    <div class="subtitle">
-        A contextual text classifier for mental health signal detection —
-        grounded in empathy, guided by data.
-    </div>
+    <div class="subtitle">Advanced Text-Based Mental Health Context Classifier</div>
 </div>
 """, unsafe_allow_html=True)
 
-# 3. Cached Model Loading Pipeline (Production-Grade Fine-Tuned Model)
+# 3. Cached Model Loading Pipeline (unchanged)
 @st.cache_resource
 def load_pipeline():
-    # Points to a highly accurate public BERT model fine-tuned on exactly 4 mental health classes
     model_path = "ourafla/mental-health-bert-finetuned" 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -351,41 +203,41 @@ except Exception as e:
     st.sidebar.error("Model Loading Error. Verify your configuration files are in the main folder.")
     st.stop()
 
-# 4. New Sidebar Content: Clean System Guidelines
+# 4. Sidebar Content (minimal visual update)
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Usage Guidelines")
 st.sidebar.info("""
 **Best Practices for Analysis:**
-* **Natural Language:** Type or paste complete sentences. The deep learning model relies on grammatical context and sentence structures.
-* **Character Length:** Ideal inputs range between 10 to 200 words for optimal attention-matrix processing.
-* **Objective Evaluation:** The dashboard outputs probability distributions across four separate psychological linguistic contexts.
+* **Natural Language:** Type or paste complete sentences. 
+* **Character Length:** Ideal inputs range between 10 to 200 words.
+* **Objective Evaluation:** Results show probability distribution across four psychological contexts.
 """)
 st.sidebar.markdown("---")
-st.sidebar.caption("*All string analyses are processed locally on the system memory pipeline.*")
+st.sidebar.caption("*All analyses are processed locally in your browser.*")
 
-# 5. Dedicated Text Cleaning Rule
+# 5. Text Cleaning (unchanged)
 def clean_input_text(text):
     text = html.unescape(str(text))
     text = re.sub(r'<[^>]+>', ' ', text)
     text = " ".join(text.split())
     return text
 
-# 6. Core User Input Area
+# 6. User Input
 user_input = st.text_area(
     "Enter text context below to compute deep learning inferences:",
-    placeholder="Type out statements or text sequences here to analyse context...",
+    placeholder="Type out statements or text sequences here to analyze context...",
     height=160
 )
 
-# 7. Execution and Logic
+# 7. Execution and Logic (only visual updates below)
 if st.button("Run Live Prediction Analytics", type="primary", use_container_width=True):
     if user_input.strip() == "":
-        st.warning("Input text cannot be left blank.")
+        st.warning("Access Denied: Input text cannot be left blank.")
     else:
         with st.spinner("Processing text sequences..."):
             cleaned_text = clean_input_text(user_input).lower()
             
-            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS ---
+            # --- DEFINITIVE SAFETY BYPASS OVERRIDE PATTERNS --- (unchanged)
             safety_keywords = [
                 r"\bkill\s+myself\b", 
                 r"\bend\s+my\s+life\b", 
@@ -398,13 +250,11 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
             class_labels = ['Anxiety', 'Depression', 'Normal', 'Suicidal']
             
             if is_safety_override:
-                # Direct string override bypass logic
                 predicted_label = 'Suicidal'
                 highest_confidence = 100.0
-                probabilities = [0.0, 0.0, 0.0, 1.0] # Hardcode array matrix for chart
+                probabilities = [0.0, 0.0, 0.0, 1.0]
                 crisis_prob = 1.0
             else:
-                # Fallback to standard BERT Deep Learning Model Inference
                 inputs = tokenizer(clean_input_text(user_input), truncation=True, padding='max_length', max_length=256, return_tensors="pt")
                 inputs = {key: val.to(device) for key, val in inputs.items()}
                 
@@ -421,98 +271,74 @@ if st.button("Run Live Prediction Analytics", type="primary", use_container_widt
             
             st.markdown("### Classification Analytics Dashboard")
             
-            # ── Refined semantic palette aligned with mental health tone ──
+            # Updated Theme Colors - More Human, Calming & Empathetic
             theme_colors = {
                 'Normal': {
-                    'hex': '#4A6741',      # sage green — calm, grounded
-                    'bg':  '#EBF2E7'
+                    'hex': '#10B981',
+                    'bg': '#ECFDF5'
                 },
                 'Anxiety': {
-                    'hex': '#B5692A',      # warm amber — restless, alert
-                    'bg':  '#F5E6D5'
+                    'hex': '#F59E0B',
+                    'bg': '#FFFBEB'
                 },
                 'Depression': {
-                    'hex': '#5A6278',      # dusty slate — muted, withdrawn
-                    'bg':  '#E3E6EF'
+                    'hex': '#64748B',
+                    'bg': '#F8FAFC'
                 },
                 'Suicidal': {
-                    'hex': '#B04A36',      # terracotta — urgent, grounding
-                    'bg':  '#F5E0DA'
+                    'hex': '#EF4444',
+                    'bg': '#FEF2F2'
                 }
             }
-
             active_color = theme_colors[predicted_label]['hex']
             
-            # Primary Metric Box Display
+            # Primary Metric Box
             st.markdown(f"""
-                <div class="metric-box" style="border-left-color: {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
-                    <div class="metric-title">Identified Primary Psychological Context</div>
-                    <div class="metric-value" style="color: {active_color};">{predicted_label} ({highest_confidence:.1f}%)</div>
+                <div class="metric-box" style="border-left: 7px solid {active_color}; background-color: {theme_colors[predicted_label]['bg']};">
+                    <div class="metric-title">Primary Psychological Context</div>
+                    <div class="metric-value" style="color: {active_color};">{predicted_label}</div>
+                    <div style="font-size: 1.35rem; color: #475569; margin-top: 0.3rem;">
+                        {highest_confidence:.1f}% confidence
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
             
-            # Interactive Plotly Distribution Chart
+            # Interactive Plotly Chart (colors updated)
             fig = go.Figure(go.Bar(
                 x=[p * 100 for p in probabilities],
                 y=class_labels,
                 orientation='h',
                 marker=dict(
                     color=[theme_colors[lbl]['hex'] for lbl in class_labels],
-                    opacity=0.88,
-                    line=dict(color='rgba(44, 41, 37, 0.10)', width=1)
+                    line=dict(color='rgba(0, 0, 0, 0.1)', width=1)
                 ),
                 text=[f"{p*100:.1f}%" for p in probabilities],
                 textposition='outside',
-                textfont=dict(family="Source Sans 3, sans-serif", size=12, color="#A89F96"),
                 hoverinfo='x'
             ))
             
             fig.update_layout(
-                title=dict(
-                    text="Confidence Distribution",
-                    font=dict(family="Lora, Georgia, serif", size=14, color="#A89F96"),
-                    x=0.02
-                ),
-                xaxis=dict(
-                    title="Probability Score (%)",
-                    title_font=dict(family="Source Sans 3, sans-serif", size=11, color="#A09890"),
-                    range=[0, 118],
-                    showgrid=True,
-                    gridcolor='#2E2B26',
-                    tickfont=dict(family="Source Sans 3, sans-serif", size=11, color="#6A6259"),
-                    zeroline=False
-                ),
-                yaxis=dict(
-                    autorange="reversed",
-                    tickfont=dict(family="Source Sans 3, sans-serif", size=12, color="#EDE8E1"),
-                ),
-                margin=dict(l=20, r=30, t=44, b=24),
-                height=260,
+                title=dict(text="Confidence Distribution", font=dict(size=15, color="#334155")),
+                xaxis=dict(title="Probability (%)", range=[0, 115], showgrid=True, gridcolor='#E2E8F0'),
+                yaxis=dict(autorange="reversed", tickfont=dict(size=13, weight="600")),
+                margin=dict(l=20, r=30, t=40, b=20),
+                height=280,
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)'
             )
             
             st.plotly_chart(fig, use_container_width=True)
             
-            # Crisis Warning Output Flag
+            # Crisis Warning
             if crisis_prob >= 0.25:
-                st.markdown("""
-                    <div style="
-                        background-color: #FDF3F1;
-                        border: 1px solid #D9A89F;
-                        border-left: 5px solid #B04A36;
-                        padding: 1.1rem 1.3rem;
-                        border-radius: 12px;
-                        margin-top: 1rem;
-                        font-family: 'Source Sans 3', sans-serif;
-                    ">
-                        <span style="font-weight: 700; color: #8B2E1F; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em;">
-                            ⚠ Critical Risk Signal Detected
-                        </span><br><br>
-                        <span style="color: #4A2020; font-size: 0.94rem; line-height: 1.65;">
-                            High-severity mental health signals have been identified in this input.
-                            The crisis confidence score registers at <b style="color:#B04A36;">{:.1f}%</b>.
-                            Please ensure emergency helpline resources and support contacts are made immediately visible to the user.
+                st.markdown(f"""
+                    <div style="background-color: #FEF3F2; border-left: 6px solid #EF4444; padding: 1.25rem; border-radius: 16px; margin-top: 1.5rem;">
+                        <span style="font-weight: bold; color: #B91C1C;">⚠️ Critical Risk Alert</span><br>
+                        <span style="color: #991B1B; font-size: 1rem;">
+                            High-severity signals detected. Crisis probability: <b>{crisis_prob*100:.1f}%</b>.<br>
+                            Please reach out to a trusted person or professional helpline immediately.
                         </span>
                     </div>
-                """.format(crisis_prob * 100), unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
+</FILE>
+              
